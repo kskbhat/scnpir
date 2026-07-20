@@ -685,16 +685,34 @@ Test your understanding of Unit 1!
 
 ```{r quiz}
 quiz(
+  caption = "Unit 1 Knowledge Check",
   question("What is the main difference between a matrix and a data frame in R?",
     answer("A matrix can only hold a single data type, while a data frame can hold multiple types in different columns.", correct = TRUE),
-    answer("A matrix is 3-dimensional, while a data frame is 2-dimensional.", message = "No, both are 2-dimensional."),
-    incorrect = "Correct! Matrices are homogeneous, whereas data frames can have heterogeneous columns."
+    answer("A matrix is 3-dimensional, while a data frame is 2-dimensional.", message = "No, both matrices and data frames are 2-dimensional."),
+    answer("A data frame can only hold numbers, while a matrix holds text.", message = "Incorrect. Matrices can hold text or numbers, but all elements must be of the same single type."),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
   ),
-  question("Which operator extracts list elements as their actual data type (instead of a sublist container)?",
-    answer("`[`", message = "No, single brackets return a sublist containing the elements."),
+  question_text(
+    "What R function is used to load data from a comma-separated CSV file into a data frame?",
+    answer("read.csv", correct = TRUE),
+    answer("read.csv()", correct = TRUE),
+    allow_retry = TRUE,
+    trim = TRUE,
+    options = list(placeholder = "e.g., function_name")
+  ),
+  question_numeric(
+    "How many dimensions does a standard R matrix have?",
+    answer(2, correct = TRUE),
+    allow_retry = TRUE,
+    correct = "Correct! A matrix is a 2-dimensional data structure (rows and columns)."
+  ),
+  question("Which operators extract list elements as their actual data type (instead of a sublist container)? (Select all that apply)",
+    answer("`[`", message = "No, single square brackets [ ] return a sublist container."),
     answer("`[[`", correct = TRUE),
     answer("`$`", correct = TRUE),
-    incorrect = "Correct! Both `[[` and `$` extract the actual content."
+    allow_retry = TRUE,
+    type = "learnr_checkbox"
   )
 )
 ```

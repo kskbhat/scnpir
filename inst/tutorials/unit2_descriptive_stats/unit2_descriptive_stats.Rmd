@@ -20,6 +20,44 @@ Welcome to Unit 2! This tutorial covers descriptive statistics, programming stru
 
 ---
 
+
+---
+
+## Interactive Explorer: Skewness & Mean vs. Median
+
+Observe how skewness affects central tendency in real time. Move the slider to shift data skewness and watch how the mean and median diverge!
+
+```{r skew-demo-ui}
+sliderInput("skew_param", "Distribution Skewness:", min = -2, max = 2, value = 0, step = 0.5)
+plotOutput("skew_plot", height = "300px")
+```
+
+```{r skew-demo-server, context="server"}
+output$skew_plot <- renderPlot({
+  set.seed(123)
+  n <- 500
+  skew_val <- input$skew_param
+  if (skew_val == 0) {
+    x <- rnorm(n, mean = 50, sd = 10)
+  } else if (skew_val > 0) {
+    x <- rgamma(n, shape = 2 / skew_val, scale = 5 * skew_val) + 30
+  } else {
+    x <- 70 - rgamma(n, shape = 2 / abs(skew_val), scale = 5 * abs(skew_val))
+  }
+  
+  m <- mean(x)
+  med <- median(x)
+  
+  hist(x, breaks = 25, col = "#AED6F1", border = "white",
+       main = paste("Mean =", round(m, 2), "| Median =", round(med, 2)),
+       xlab = "Value")
+  abline(v = m, col = "#C0392B", lwd = 3, lty = 1)
+  abline(v = med, col = "#27AE60", lwd = 3, lty = 2)
+  legend("topright", legend = c("Mean", "Median"), col = c("#C0392B", "#27AE60"), lwd = 3, lty = c(1, 2))
+})
+```
+
+
 ## Exercise 1: Central Tendency and Dispersion
 
 Measures of central tendency and dispersion provide a numeric summary of data.

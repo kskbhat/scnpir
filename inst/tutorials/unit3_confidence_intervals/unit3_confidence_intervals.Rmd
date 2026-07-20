@@ -19,6 +19,49 @@ Welcome to Unit 3! This tutorial covers statistical estimation, manual and R-bas
 
 ---
 
+
+---
+
+## Interactive Explorer: Sample Size & Confidence Interval Width
+
+Adjust the sample size $n$ and confidence level to see how the width of the confidence interval reacts live!
+
+```{r ci-demo-ui}
+sliderInput("n_sim", "Sample Size (n):", min = 10, max = 250, value = 30, step = 10)
+selectInput("conf_level", "Confidence Level:", choices = c("90%" = 0.90, "95%" = 0.95, "99%" = 0.99), selected = 0.95)
+plotOutput("ci_plot", height = "300px")
+```
+
+```{r ci-demo-server, context="server"}
+output$ci_plot <- renderPlot({
+  set.seed(42)
+  n <- input$n_sim
+  conf <- as.numeric(input$conf_level)
+  
+  # Simulate sample from Normal(50, 10)
+  x <- rnorm(n, mean = 50, sd = 10)
+  xbar <- mean(x)
+  se <- sd(x) / sqrt(n)
+  alpha <- 1 - conf
+  t_crit <- qt(1 - alpha / 2, df = n - 1)
+  
+  lower <- xbar - t_crit * se
+  upper <- xbar + t_crit * se
+  width <- upper - lower
+  
+  plot(50, 1, xlim = c(40, 60), ylim = c(0.5, 1.5), type = "n", yaxt = "n",
+       xlab = "Population Mean (mu)", ylab = "",
+       main = paste(conf*100, "% CI: [", round(lower, 2), ",", round(upper, 2), "] | Margin of Error = +/-", round(t_crit*se, 2)))
+  
+  abline(v = 50, col = "red", lty = 2, lwd = 2)
+  arrows(lower, 1, upper, 1, angle = 90, code = 3, length = 0.1, col = "#2980B9", lwd = 4)
+  points(xbar, 1, pch = 19, col = "#1A5276", cex = 2)
+  legend("topleft", legend = c("True Mean (50)", "Sample Mean", "Confidence Interval"),
+         col = c("red", "#1A5276", "#2980B9"), lty = c(2, NA, 1), pch = c(NA, 19, NA), lwd = c(2, NA, 4))
+})
+```
+
+
 ## Exercise 1: Manual t-Test Calculations
 
 Understanding the manual calculation of the $t$-statistic and its corresponding $p$-value.

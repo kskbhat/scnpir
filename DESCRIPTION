@@ -1,13 +1,12 @@
 Package: scnpir
 Type: Package
-Title: Interactive R Tutorials for DDS 6103 Statistical Computing Course
+Title: Interactive R Tutorials for Statistical Computing and Non-Parametric Inference
 Version: 0.1.0
 Author: Shrikrishna Bhat Kapu
 Maintainer: Shrikrishna Bhat Kapu <sankhyashodh@gmail.com>
-Description: Interactive learnr tutorials for DDS 6103: Statistical Computing
-    and Non-Parametric Inference Using R at MAHE, covering R programming,
-    descriptive statistics, resampling methods, contingency tables, and
-    non-parametric inference.
+Description: Interactive learnr tutorials for Statistical Computing and Non-Parametric
+    Inference Using R, covering R programming, descriptive statistics, resampling
+    methods, contingency tables, and non-parametric inference.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

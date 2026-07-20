@@ -27,6 +27,8 @@ get_dataset_path <- function(name) {
   path
 }
 
+# nocov start
+
 #' Run Unit 1 Interactive Tutorial
 #' @export
 run_unit1 <- function() {
@@ -56,3 +58,5 @@ run_unit4 <- function() {
 run_unit5 <- function() {
   learnr::run_tutorial("unit5_nonparametric_tests", package = "scnpir")
 }
+
+# nocov end

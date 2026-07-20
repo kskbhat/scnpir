@@ -1,0 +1,514 @@
+---
+title: "Unit 2: Descriptive Statistics and Programming Fundamentals"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(gradethis)
+tutorial_options(exercise.checker = gradethis::grade_learnr)
+library(dplyr)
+library(ggplot2)
+knitr::opts_chunk$set(echo = FALSE)
+scores <- read.csv("data/student_scores.csv")
+```
+
+## Welcome
+
+Welcome to Unit 2! This tutorial covers descriptive statistics, programming structures (conditionals, loops, custom functions), S3 object-oriented programming, and modern R workflows (dplyr, ggplot2).
+
+---
+
+## Exercise 1: Central Tendency and Dispersion
+
+Measures of central tendency and dispersion provide a numeric summary of data.
+
+### Practice Problem
+Using the preloaded data frame `scores` and base R functions:
+
+1. Compute the mean score of students.
+2. Compute the median score of students.
+3. Compute the standard deviation and variance of scores.
+4. Print the overall summary of scores using `summary()`.
+
+```{r ex1, exercise=TRUE}
+# 1. Calculate mean and median
+
+
+# 2. Calculate standard deviation and variance
+
+
+# 3. Print overall summary
+
+
+```
+
+```{r ex1-hint-1}
+# Hint: Access the specific column of the data frame using the dollar operator ($). Calculate summary stats using mean(), median(), sd(), var(), and summary().
+```
+
+```{r ex1-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex1-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 2: Custom Functions - Skewness
+
+Custom functions allow you to implement algorithms not found in base R.
+
+### Practice Problem
+Recall the formula for sample skewness (biased denominator):
+$$\text{Skewness} = \frac{\frac{1}{n}\sum(x_i - \bar{x})^3}{\left[\frac{1}{n}\sum(x_i - \bar{x})^2\right]^{3/2}}$$
+
+Write a function named `skewness_manual` that:
+
+1. Takes a numeric vector `x` as input.
+2. Returns `NA` if `length(x) < 3`.
+3. Computes and returns the skewness.
+
+```{r ex2, exercise=TRUE}
+skewness_manual <- function(x) {
+  # Write your function logic here:
+  
+  
+}
+
+# Test your function:
+test_vector <- c(4, 5, 6, 8, 10)
+skewness_manual(test_vector)
+```
+
+```{r ex2-hint-1}
+# Hint: Count length with length(). Calculate mean with mean(). Calculate the numerator as sum((x - m)^3) / n and denominator as (sum((x - m)^2) / n)^(1.5) or using sqrt(). Remember to check the sample size condition first.
+```
+
+```{r ex2-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex2-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 3: Custom Functions - Kurtosis
+
+Kurtosis measures the "tailedness" of a theoretical probability distribution.
+
+### Practice Problem
+Recall the formula for sample kurtosis (biased denominator):
+$$\text{Kurtosis} = \frac{\frac{1}{n}\sum(x_i - \bar{x})^4}{\left[\frac{1}{n}\sum(x_i - \bar{x})^2\right]^2}$$
+
+Write a function named `kurtosis_manual` that:
+
+1. Takes a numeric vector `x` as input.
+2. Returns `NA` if `length(x) < 3`.
+3. Computes and returns the kurtosis.
+
+```{r ex3, exercise=TRUE}
+kurtosis_manual <- function(x) {
+  # Write your function logic here:
+  
+  
+}
+
+# Test your function:
+test_vector <- c(4, 5, 6, 8, 10)
+kurtosis_manual(test_vector)
+```
+
+```{r ex3-hint-1}
+# Hint: Load the moments or psych package using library() or use the built-in function from those packages to calculate skewness and kurtosis.
+```
+
+```{r ex3-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex3-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 4: Conditional Statements
+
+Conditional blocks allow branching logic based on tests.
+
+### Practice Problem
+Using an `if-else` block:
+
+1. Write a block that checks a variable `age <- 20`.
+2. If `age` is less than `18`, print `"Minor"`.
+3. If `age` is between `18` and `65` (inclusive), print `"Adult"`.
+4. Otherwise, print `"Senior"`.
+
+```{r ex4, exercise=TRUE}
+age <- 20
+
+# Write your if-else conditional block here:
+
+
+```
+
+```{r ex4-hint-1}
+# Hint: Initialize a counter or subset the vector. Use a loop (like for or while) to iterate through the indices, checking conditions using if/else statements. Increment your counts accordingly.
+```
+
+```{r ex4-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex4-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 5: Vectorized Conditionals
+
+`ifelse()` is R's fast, vectorized conditional function.
+
+### Practice Problem
+Using the preloaded vector `scores_vec <- c(45, 78, 62, 85, 53)`:
+
+1. Use `ifelse()` to create a vector named `grades`.
+2. Assign `"Pass"` if a score is `60` or above, else assign `"Fail"`.
+
+```{r ex5, exercise=TRUE}
+scores_vec <- c(45, 78, 62, 85, 53)
+
+# 1. Create grades vector using ifelse()
+
+
+```
+
+```{r ex5-hint-1}
+# Hint: Use ifelse() for conditional element-wise operations on vectors, or logical indexing directly without looping.
+```
+
+```{r ex5-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex5-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 6: For Loops
+
+For loops iterate over a predefined sequence.
+
+### Practice Problem
+1. Write a `for` loop that iterates through the numbers `1` to `5`.
+2. If a number is even, print `"[number] is even"`, else print `"[number] is odd"` using `cat()` and the modulo operator `%%`.
+
+```{r ex6, exercise=TRUE}
+# Write your for loop here:
+
+
+```
+
+```{r ex6-hint-1}
+# Hint: Define a function using function(arg) and return the output using return().
+```
+
+```{r ex6-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex6-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 7: While Loops
+
+While loops execute as long as a logical condition remains true.
+
+### Practice Problem
+1. Initialize a counter `k <- 1`.
+2. Write a `while` loop that runs as long as `k <= 3`.
+3. Inside the loop, print `"Counter is:"` followed by `k`, and increment `k` by 1.
+
+```{r ex7, exercise=TRUE}
+# Write your while loop here:
+
+
+```
+
+```{r ex7-hint-1}
+# Hint: Combine your custom function with loops or sapply() to calculate summaries across multiple columns.
+```
+
+```{r ex7-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex7-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 8: Repeat Loops with Break & Next
+
+`repeat` creates an infinite loop that must be explicitly terminated with `break`.
+
+### Practice Problem
+1. Initialize `i <- 0`.
+2. Write a `repeat` loop that increments `i` by 1 at each iteration.
+3. If `i == 2`, skip printing by using `next`.
+4. Print `i` using `print(i)`.
+5. If `i >= 4`, terminate the loop using `break`.
+
+```{r ex8, exercise=TRUE}
+# Write your repeat loop here:
+
+
+```
+
+```{r ex8-hint-1}
+# Hint: Use select() to subset specific columns by name or helper functions.
+```
+
+```{r ex8-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex8-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 9: Functions with Default Arguments
+
+You can specify default values for function parameters in R.
+
+### Practice Problem
+1. Write a function named `power_func` that takes two arguments: `base` and `exponent`.
+2. Set the default value of `exponent` to `2`.
+3. The function should return `base^exponent`.
+4. Test it by running `power_func(5)` and `power_func(5, 3)`.
+
+```{r ex9, exercise=TRUE}
+power_func <- function(base, exponent) {
+  # Write function here:
+  
+  
+}
+
+# Test it:
+power_func(5)
+power_func(5, 3)
+```
+
+```{r ex9-hint-1}
+# Hint: Use filter() to subset rows that match specific logical conditions (e.g. age > 30).
+```
+
+```{r ex9-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex9-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 10: S3 OOP - Creating S3 Objects
+
+The S3 class system is R's informal, list-based OOP framework.
+
+### Practice Problem
+1. Create a list named `stud` containing elements: `name = "Alice"` and `score = 95`.
+2. Set the class of `stud` to `"student"` using `class()`.
+3. Return the class of `stud`.
+
+```{r ex10, exercise=TRUE}
+# 1. Create stud list
+
+
+# 2. Assign class student
+
+
+# 3. Return class
+
+
+```
+
+```{r ex10-hint-1}
+# Hint: Use mutate() to create new columns or modify existing ones.
+```
+
+```{r ex10-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex10-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 11: S3 OOP - Writing Methods
+
+S3 generic functions dispatch to methods using naming syntax: `generic.class`.
+
+### Practice Problem
+1. Create an S3 patient record list `pat <- list(name = "Bob", pulse = 75)`.
+2. Set its class to `"patient"`.
+3. Define the S3 method `print.patient <- function(x, ...)` to print `"Patient [name] pulse: [pulse]"` using `cat()`.
+
+```{r ex11, exercise=TRUE}
+# 1. Create pat patient object
+
+
+# 2. Define print.patient method
+
+
+# 3. Test printing pat
+
+
+```
+
+```{r ex11-hint-1}
+# Hint: Combine group_by() and summarise() to calculate summary stats stratified by categories.
+```
+
+```{r ex11-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex11-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 12: Modern Data Manipulation with dplyr
+
+`dplyr` provides high-performance data manipulation verbs.
+
+### Practice Problem
+Using the preloaded data frame `scores` and the pipe (`%>%` or `|>`):
+
+1. **`filter`** for students in group `"A"`.
+2. **`select`** only columns `group` and `score`.
+3. **`mutate`** to create `score_percent` dividing `score` by 100.
+4. **`group_by`** group and **`summarise`** to find the mean and standard deviation of score.
+
+```{r ex12, exercise=TRUE}
+# 1. Filter, select, and mutate in one pipeline
+
+
+# 2. Group by and calculate group means
+
+
+```
+
+```{r ex12-hint-1}
+# Hint: Use ggplot() specifying the data frame and aes(x, y). Add points using geom_point().
+```
+
+```{r ex12-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex12-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 13: Data Visualization with ggplot2
+
+`ggplot2` builds visual plots incrementally using layers.
+
+### Practice Problem
+Using the preloaded data frame `scores`:
+
+1. Create a scatter plot of `hours_studied` (x-axis) vs `score` (y-axis) using `geom_point()`.
+2. Map `group` to the color aesthetic.
+3. Add a linear regression line using `geom_smooth(method = "lm", se = FALSE)`.
+
+```{r ex13, exercise=TRUE}
+# Create a scatter plot of hours_studied vs score with group color and a linear trend line
+
+
+```
+
+```{r ex13-hint-1}
+# Hint: Use ggplot() specifying the data frame and aes(x, y). Add box plots using geom_boxplot() and color them by group.
+```
+
+```{r ex13-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex13-check}
+grade_this_code()
+```
+
+### Check Your Understanding & How to Report
+
+```{r ex13-quiz}
+quiz(
+  question("What is the S3 method naming convention in R?",
+    answer("`generic_name.class_name`", correct = TRUE),
+    answer("`class_name$generic_name`", message = "No, that represents class attributes or environments."),
+    incorrect = "Correct! For print on patient, it is print.patient."
+  )
+)
+```
+
+**How to Report in a Research Paper:**
+
+> S3 object-oriented systems were used in R to create structured records, facilitating automated custom formatting.
+
+---
+
+## Concept Check Quiz
+
+Test your understanding of Unit 2!
+
+```{r quiz}
+quiz(
+  question("Which of the following dplyr verbs is used to subset columns of a data frame?",
+    answer("`filter()`", message = "No, filter() subsets rows."),
+    answer("`select()`", correct = TRUE),
+    answer("`mutate()`", message = "No, mutate() adds or modifies columns."),
+    incorrect = "Correct! select() subsets variables (columns)."
+  ),
+  question("Which loop construct is guaranteed to run indefinitely if the stopping condition is never updated inside the loop?",
+    answer("`for` loop", message = "No, for loops terminate once the sequence ends."),
+    answer("`while` loop", correct = TRUE),
+    incorrect = "Correct! A while loop runs as long as its condition remains TRUE."
+  )
+)
+```

@@ -1,0 +1,493 @@
+---
+title: "Unit 1: Introduction to R and Data Structures"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(gradethis)
+tutorial_options(exercise.checker = gradethis::grade_learnr)
+library(readxl)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Welcome
+
+Welcome to Unit 1! This tutorial covers the fundamentals of R and its core data structures, including vectors, matrices, arrays, lists, factors, and data frames.
+
+---
+
+## Exercise 1: Comments and Timestamps
+
+Documenting your code and recording execution times are critical for reproducible research.
+
+### Practice Problem
+1. Create a script header comment.
+2. Print the current date and time using `Sys.time()`.
+3. Print a custom formatted timestamp: `"Execution Timestamp: [Formatted Date & Time]"` using `cat()` and `format()`.
+
+```{r ex1, exercise=TRUE}
+# 1. Add a comment describing this script
+
+
+# 2. Print current date and time using Sys.time()
+
+
+# 3. Print a formatted execution timestamp
+
+
+```
+
+```{r ex1-hint-1}
+# Hint: Recall that you can retrieve the current system time using Sys.time(). To format it, use format() with standard formatting strings (e.g., %Y for year, %m for month, %d for day, %H for hour, %M for minute, %S for second).
+```
+
+```{r ex1-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex1-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 2: Vector Creation and Arithmetic
+
+Vectors are 1-dimensional arrays holding elements of the same data type.
+
+### Practice Problem
+1. Create a numeric vector `v1` containing integers from `5` to `15` using the `:` operator.
+2. Create a numeric vector `v2` containing a sequence from `10` to `30` in steps of `2` using `seq()`.
+3. Add the first 6 elements of `v1` and `v2` together.
+
+```{r ex2, exercise=TRUE}
+# 1. Create v1
+
+
+# 2. Create v2
+
+
+# 3. Add first 6 elements of v1 and v2
+
+
+```
+
+```{r ex2-hint-1}
+# Hint: Use the colon operator (:) to generate consecutive integers. Use seq() with appropriate from, to, and by arguments to create the second sequence. Subset both using square brackets [1:6] and add them together.
+```
+
+```{r ex2-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex2-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 3: Vector Indexing by Position
+
+You can subset vectors using positive indices, negative indices, or index vectors.
+
+### Practice Problem
+Using the preloaded vector `temp <- c(36.5, 37.2, 38.9, 39.1, 36.8)`:
+
+1. Extract the 3rd element.
+2. Extract the last element using `length()`.
+3. Extract all elements *except* the 2nd one (using a negative index).
+
+```{r ex3, exercise=TRUE}
+temp <- c(36.5, 37.2, 38.9, 39.1, 36.8)
+
+# 1. Extract 3rd element
+
+
+# 2. Extract last element
+
+
+# 3. Extract all except the 2nd element
+
+
+```
+
+```{r ex3-hint-1}
+# Hint: Use square brackets to extract specific elements by position. To exclude an element, prefix the index with a minus sign (-).
+```
+
+```{r ex3-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex3-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 4: Vector Indexing by Logical Conditions
+
+Logical subsetting filters vectors by keeping only elements that satisfy a condition.
+
+### Practice Problem
+Using the preloaded vector `scores <- c(45, 82, 91, 58, 73, 64, 88)`:
+
+1. Find which scores are greater than or equal to `70` (returns a logical vector).
+2. Subset `scores` to extract the actual values that are greater than or equal to `70`.
+
+```{r ex4, exercise=TRUE}
+scores <- c(45, 82, 91, 58, 73, 64, 88)
+
+# 1. Find logical vector for scores >= 70
+
+
+# 2. Extract scores >= 70
+
+
+```
+
+```{r ex4-hint-1}
+# Hint: Apply a logical comparison operator (like >=) directly to the vector. Then subset the vector using this logical result inside square brackets.
+```
+
+```{r ex4-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex4-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 5: Mathematical and Rounding Functions
+
+R provides built-in functions for mathematical calculations and rounding.
+
+### Practice Problem
+1. Find the absolute values of the vector `x <- c(-5.6, 2.3, -9.1)`.
+2. Compute the natural logarithm (`log()`) of `100`, and round the result to `2` decimal places.
+3. Compute the square root of `50`, and round it down to the nearest integer using `floor()`.
+
+```{r ex5, exercise=TRUE}
+# 1. Absolute values of x
+
+
+# 2. Log of 100 rounded to 2 decimal places
+
+
+# 3. Square root of 50 rounded down
+
+
+```
+
+```{r ex5-hint-1}
+# Hint: Use abs() for absolute values, log() with base 10 (or log() specifying base), and floor() or ceiling() for rounding down or up. Remember that sqrt() calculates square roots.
+```
+
+```{r ex5-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex5-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 6: Matrix Creation
+
+A matrix is a 2-dimensional vector with rows and columns.
+
+### Practice Problem
+1. Create a 3x3 matrix named `my_mat` containing values `1` to `9`, filled **by row**.
+2. Assign row names `"Row1", "Row2", "Row3"` and column names `"Col1", "Col2", "Col3"`.
+
+```{r ex6, exercise=TRUE}
+# 1. Create a 3x3 matrix filled by row
+
+
+# 2. Assign rownames and colnames
+
+
+```
+
+```{r ex6-hint-1}
+# Hint: Use matrix() specifying the data, nrow, ncol, and byrow = TRUE. Row names and column names can be assigned using rownames() and colnames() on the matrix object.
+```
+
+```{r ex6-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex6-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 7: Matrix Subsetting
+
+You can subset a matrix using `my_mat[row, column]`.
+
+### Practice Problem
+Using the preloaded matrix `mat`:
+
+1. Extract the entire 2nd row.
+2. Extract the entire 3rd column.
+3. Extract the element at the intersection of the 2nd row and 3rd column.
+
+```{r ex7, exercise=TRUE}
+mat <- matrix(10:18, nrow = 3, byrow = TRUE)
+
+# 1. Extract 2nd row
+
+
+# 2. Extract 3rd column
+
+
+# 3. Extract element at row 2, col 3
+
+
+```
+
+```{r ex7-hint-1}
+# Hint: Subset a matrix using the format mat[row, column]. To select an entire row or column, leave the other dimension blank.
+```
+
+```{r ex7-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex7-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 8: Matrix Arithmetic & Row/Column Statistics
+
+R provides convenient functions for summarizing matrix rows and columns.
+
+### Practice Problem
+Using the preloaded matrix `mat`:
+
+1. Calculate the sum of each row using `rowSums()`.
+2. Calculate the mean of each column using `colMeans()`.
+
+```{r ex8, exercise=TRUE}
+mat <- matrix(1:12, nrow = 3)
+
+# 1. Sum of each row
+
+
+# 2. Mean of each column
+
+
+```
+
+```{r ex8-hint-1}
+# Hint: Use rowSums() to compute sums for each row and colMeans() to compute means for each column of the matrix.
+```
+
+```{r ex8-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex8-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 9: Arrays
+
+Arrays generalize matrices to three or more dimensions.
+
+### Practice Problem
+1. Create a 3-dimensional array named `my_arr` containing numbers `1` to `12`.
+2. Give it dimensions of `2` rows, `3` columns, and `2` layers (slices) using `array()`.
+
+```{r ex9, exercise=TRUE}
+# 1. Create a 3D array of size 2x3x2
+
+
+```
+
+```{r ex9-hint-1}
+# Hint: Use array() specifying the data vector and a dim argument as a numeric vector representing the dimensions (rows, columns, layers).
+```
+
+```{r ex9-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex9-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 10: List Creation
+
+Lists are ordered containers that can hold elements of different modes and lengths.
+
+### Practice Problem
+1. Create a list named `patient_record` containing:
+   - A numeric scalar named `id` with value `402`.
+   - A character vector named `symptoms` with values `"cough"`, `"fever"`.
+   - A logical scalar named `admitted` with value `TRUE`.
+
+```{r ex10, exercise=TRUE}
+# 1. Create patient_record list
+
+
+```
+
+```{r ex10-hint-1}
+# Hint: Use list() specifying named arguments (e.g. name = value) for the id, symptoms, and admitted status.
+```
+
+```{r ex10-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex10-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 11: List Indexing
+
+You can extract items from a list using `[ ]`, `[[ ]]`, or `$`.
+
+### Practice Problem
+Using the preloaded list `record`:
+
+1. Extract the `symptoms` vector as a simple character vector (using `[[ ]]` or `$`).
+2. Extract a sublist containing *only* the `id` element (using `[ ]`).
+
+```{r ex11, exercise=TRUE}
+record <- list(id = 402, symptoms = c("cough", "fever"), admitted = TRUE)
+
+# 1. Extract symptoms vector
+
+
+# 2. Extract id sublist
+
+
+```
+
+```{r ex11-hint-1}
+# Hint: To extract the actual cargo of a list element (like a vector), use the double square brackets [[ ]] or the dollar sign $. Single square brackets [ ] will return a sublist container.
+```
+
+```{r ex11-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex11-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 12: Factors
+
+Factors represent categorical variables with predefined levels.
+
+### Practice Problem
+Consider the character vector `responses <- c("Agree", "Disagree", "Neutral", "Agree")`.
+
+1. Convert `responses` into an ordered factor named `ordered_responses`.
+2. Explicitly define the levels order as `"Disagree"`, `"Neutral"`, `"Agree"`.
+
+```{r ex12, exercise=TRUE}
+responses <- c("Agree", "Disagree", "Neutral", "Agree")
+
+# 1. Create ordered_responses factor
+
+
+```
+
+```{r ex12-hint-1}
+# Hint: Use factor() to convert the responses character vector, specifying the levels and setting ordered = TRUE.
+```
+
+```{r ex12-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex12-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 13: Data Frames and Data Imports
+
+A data frame is a list of equal-length vectors, mimicking a dataset table.
+
+### Practice Problem
+1. Load the pre-packaged dataset `student_scores.csv` from the path `data/student_scores.csv` using `read.csv()`.
+2. Store it in a variable named `df`.
+3. Print the number of rows of `df` using `nrow()`, and view the first 3 lines of `df` using `head()`.
+
+```{r ex13, exercise=TRUE}
+# 1. Read student_scores.csv into df
+
+
+# 2. Print row count and first 3 lines
+
+
+```
+
+```{r ex13-hint-1}
+# Hint: Use read.csv() pointing to the relative path of the CSV file. Use nrow() to check the row count and head() with the n argument to view the top rows.
+```
+
+```{r ex13-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex13-check}
+grade_this_code()
+```
+
+---
+
+## Concept Check Quiz
+
+Test your understanding of Unit 1!
+
+```{r quiz}
+quiz(
+  question("What is the main difference between a matrix and a data frame in R?",
+    answer("A matrix can only hold a single data type, while a data frame can hold multiple types in different columns.", correct = TRUE),
+    answer("A matrix is 3-dimensional, while a data frame is 2-dimensional.", message = "No, both are 2-dimensional."),
+    incorrect = "Correct! Matrices are homogeneous, whereas data frames can have heterogeneous columns."
+  ),
+  question("Which operator extracts list elements as their actual data type (instead of a sublist container)?",
+    answer("`[`", message = "No, single brackets return a sublist containing the elements."),
+    answer("`[[`", correct = TRUE),
+    answer("`$`", correct = TRUE),
+    incorrect = "Correct! Both `[[` and `$` extract the actual content."
+  )
+)
+```

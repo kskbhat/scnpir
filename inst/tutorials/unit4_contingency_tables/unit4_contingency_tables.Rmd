@@ -1,0 +1,457 @@
+---
+title: "Unit 4: Analysis of Contingency Tables"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(gradethis)
+tutorial_options(exercise.checker = gradethis::grade_learnr)
+library(tableone)
+library(gtsummary)
+knitr::opts_chunk$set(echo = FALSE)
+scores <- read.csv("data/student_scores.csv")
+```
+
+## Welcome
+
+Welcome to Unit 4! This tutorial covers generating tables, Chi-Square tests (with/without Yates' correction), calculating odds ratios, Cohen's Kappa, trend tests, paired designs, stratified analysis, and compact baseline and summary tables.
+
+---
+
+## Exercise 1: Creating Contingency Tables
+
+A contingency table displays the frequency distribution of categorical variables.
+
+### Practice Problem
+Consider a clinical trial dataset with 180 subjects. We have two categorical vectors: `treatment` (New vs. Standard) and `pain_relief` (Relieved vs. Not Relieved).
+
+1. Create a 2x2 contingency table named `tab` using the `table()` function.
+2. Add marginal row and column totals using `addmargins()`.
+
+```{r ex1, exercise=TRUE}
+treatment <- rep(c("New", "Standard"), each = 90)
+pain_relief <- c(rep(c("Relieved", "Not Relieved"), times = c(75, 15)),
+                 rep(c("Relieved", "Not Relieved"), times = c(30, 60)))
+
+# 1. Create contingency table tab
+
+
+# 2. Add margins to tab
+
+
+```
+
+```{r ex1-hint-1}
+# Hint: Use table() with the two categorical vectors as arguments. Pass the resulting table to addmargins() to add marginal totals.
+```
+
+```{r ex1-hint-2}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex1-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex1-check}
+grade_this_code()
+```
+
+### Check Your Understanding & How to Report
+
+```{r ex1-quiz}
+quiz(
+  question("What is the total number of subjects in the contingency table (including row and column margins)?",
+    answer("180 subjects", correct = TRUE),
+    answer("90 subjects", message = "Incorrect. While each treatment group has 90 subjects, the total sample size is 180."),
+    incorrect = "Correct! The sum of all cell counts is 180 subjects."
+  )
+)
+```
+
+**How to Report in a Research Paper:**
+
+> Subjects were cross-classified by treatment (New vs. Standard) and pain relief (Relieved vs. Not Relieved) to form a 2x2 contingency table ($N = 180$).
+
+---
+
+## Exercise 2: Yates-Corrected Chi-Square Test
+
+Pearson's Chi-Square test determines whether there is a statistically significant association between two categorical variables.
+
+### Practice Problem
+Using the preloaded table `tab` representing Treatment vs Relief:
+
+1. Run a Pearson's Chi-Square test with Yates' continuity correction (R's default behavior).
+
+```{r ex2, exercise=TRUE}
+tab <- matrix(c(15, 75, 60, 30), nrow = 2, byrow = TRUE,
+              dimnames = list(Treatment = c("New", "Standard"),
+                              Relief = c("Not Relieved", "Relieved")))
+
+# 1. Run Yates-corrected Chi-Square
+
+
+```
+
+```{r ex2-hint-1}
+# Hint: Use chisq.test() on the contingency table matrix. By default, it applies Yates' continuity correction.
+```
+
+```{r ex2-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex2-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 3: Chi-Square Test Without Correction
+
+When sample sizes are sufficiently large, continuity correction is not necessary.
+
+### Practice Problem
+Using the same table `tab`:
+
+1. Run a standard Pearson's Chi-Square test *without* continuity correction (disabling it).
+
+```{r ex3, exercise=TRUE}
+tab <- matrix(c(15, 75, 60, 30), nrow = 2, byrow = TRUE,
+              dimnames = list(Treatment = c("New", "Standard"),
+                              Relief = c("Not Relieved", "Relieved")))
+
+# 1. Run Chi-Square without correction
+
+
+```
+
+```{r ex3-hint-1}
+# Hint: Use chisq.test() on the contingency table, setting correct = FALSE.
+```
+
+```{r ex3-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex3-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 4: Odds Ratio Calculation
+
+The Odds Ratio (OR) quantifies the strength of association between two events.
+
+### Practice Problem
+Using the cell counts in the table `tab`:
+
+1. Compute the **Odds Ratio (OR)** of achieving relief (New vs. Standard) using cell values manually:
+   $$OR = \frac{a \times d}{b \times c}$$
+
+```{r ex4, exercise=TRUE}
+tab <- matrix(c(15, 75, 60, 30), nrow = 2, byrow = TRUE,
+              dimnames = list(Treatment = c("New", "Standard"),
+                              Relief = c("Not Relieved", "Relieved")))
+
+# 1. Calculate Odds Ratio manually
+
+
+```
+
+```{r ex4-hint-1}
+# Hint: Calculate the odds of success for each group manually, then divide them to obtain the odds ratio.
+```
+
+```{r ex4-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex4-check}
+grade_this_code()
+```
+
+### Check Your Understanding & How to Report
+
+```{r ex4-quiz}
+quiz(
+  question("Based on the Yates-corrected Chi-Square test result, is the association between treatment and pain relief statistically significant?",
+    answer("Yes, the p-value is extremely small (p < 0.001), indicating a highly significant association.", correct = TRUE),
+    answer("No, the p-value is greater than 0.05.", message = "Incorrect. The p-value returned by the Chi-Square test is way below 0.05."),
+    incorrect = "Correct! The association between treatment type and pain relief outcome is highly significant."
+  )
+)
+```
+
+**How to Report in a Research Paper:**
+
+> A Yates-corrected Chi-Square test of independence revealed a significant association between treatment type and pain relief, $\chi^2(1) = 43.2, p < 0.001$. Subjects receiving the New treatment had significantly higher odds of achieving pain relief than those receiving the Standard treatment, Odds Ratio (OR) = 10.0.
+
+---
+
+## Exercise 5: Cohen's Kappa
+
+Cohen's Kappa measures inter-rater agreement for categorical items.
+
+### Practice Problem
+Two clinical observers rated 50 X-ray scans as "Normal" or "Abnormal".
+
+- Observer A & B both Normal: 30
+- Observer A Normal, Observer B Abnormal: 5
+- Observer A Abnormal, Observer B Normal: 3
+- Observer A & B both Abnormal: 12
+
+1. Compute observed agreement ($p_o$) and expected agreement by chance ($p_e$).
+2. Calculate Cohen's Kappa ($\kappa$):
+   $$\kappa = \frac{p_o - p_e}{1 - p_e}$$
+
+```{r ex5, exercise=TRUE}
+kappa_tab <- matrix(c(30, 5, 3, 12), nrow = 2, byrow = TRUE)
+
+# 1. Compute po and pe
+
+
+# 2. Calculate Cohen's Kappa
+
+
+```
+
+```{r ex5-hint-1}
+# Hint: Calculate observed agreement (diagonal sum divided by total) and expected agreement by chance based on marginal totals. Compute Kappa using the standard formula.
+```
+
+```{r ex5-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex5-check}
+grade_this_code()
+```
+
+### Check Your Understanding & How to Report
+
+```{r ex5-quiz}
+quiz(
+  question("What is the calculated value of Cohen's Kappa, and how is it interpreted?",
+    answer("Kappa = 0.63, indicating substantial agreement between observers.", correct = TRUE),
+    answer("Kappa = 0.15, indicating slight agreement.", message = "Incorrect. Check your Kappa calculation output."),
+    incorrect = "Correct! According to Landis & Koch criteria, Kappa = 0.63 indicates substantial agreement."
+  )
+)
+```
+
+**How to Report in a Research Paper:**
+
+> Inter-rater reliability between the two clinical observers rating X-ray scans showed substantial agreement, Cohen's $\kappa = 0.63$.
+
+---
+
+## Exercise 6: Cochran-Armitage Trend Test
+
+The trend test evaluates linear trends in binomial proportions across ordered categories.
+
+### Practice Problem
+Perform a Cochran-Armitage Trend Test using `prop.trend.test(x, n)` where successes are `x = c(10, 20, 35)` and sample sizes are `n = c(50, 50, 50)`.
+
+```{r ex6, exercise=TRUE}
+# 1. Run Cochran-Armitage Trend Test
+
+
+```
+
+```{r ex6-hint-1}
+# Hint: Use prop.trend.test() with the successes vector and total sample size vector.
+```
+
+```{r ex6-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex6-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 7: McNemar's Paired Test
+
+McNemar's test is used on paired nominal data (pre vs post).
+
+### Practice Problem
+Perform a McNemar test on a paired matrix `paired_tab` (pre vs post results for same subjects).
+
+```{r ex7, exercise=TRUE}
+# Paired table matrix:
+paired_tab <- matrix(c(40, 10, 25, 15), nrow = 2)
+
+# 1. Run McNemar Paired Test on paired_tab
+
+
+```
+
+```{r ex7-hint-1}
+# Hint: Use mcnemar.test() on the paired contingency table matrix.
+```
+
+```{r ex7-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex7-check}
+grade_this_code()
+```
+
+### Check Your Understanding & How to Report
+
+```{r ex7-quiz}
+quiz(
+  question("Based on the McNemar Paired Test result, does the proportion of pain relief differ significantly before and after treatment?",
+    answer("Yes, McNemar's test is statistically significant (p = 0.018 < 0.05), indicating a significant change.", correct = TRUE),
+    answer("No, the p-value is greater than 0.05.", message = "Incorrect. Check your McNemar test p-value output."),
+    incorrect = "Correct! The paired proportion difference is statistically significant."
+  )
+)
+```
+
+**How to Report in a Research Paper:**
+
+> A McNemar test was used to analyze paired pre- and post-treatment outcomes. The proportion of subjects reporting pain relief differed significantly between pre- and post-treatment phases, $\chi^2(1) = 5.8, p = 0.018$.
+
+---
+
+## Exercise 8: Cochran-Mantel-Haenszel Test
+
+The CMH test evaluates the association between binary variables while controlling for confounding strata.
+
+### Practice Problem
+Perform a Cochran-Mantel-Haenszel (CMH) test on a 2x2x2 stratified array `strat_array`.
+
+```{r ex8, exercise=TRUE}
+# Stratified 2x2x2 array (Stratum 1 & 2):
+strat_array <- array(c(10, 20, 15, 30,  # Stratum 1
+                       5, 15, 8, 22),   # Stratum 2
+                     dim = c(2, 2, 2))
+
+# 1. Run Cochran-Mantel-Haenszel Test on strat_array
+
+
+```
+
+```{r ex8-hint-1}
+# Hint: Use mantelhaen.test() on the 3D stratified contingency table array.
+```
+
+```{r ex8-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex8-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 9: Baseline Tables using tableone
+
+The `tableone` package simplifies the creation of compact baseline characteristic tables.
+
+### Practice Problem
+Using the preloaded data frame `scores`:
+
+1. Create a baseline summary table stratified by `group`.
+2. Use variables `score` and `hours_studied` as variables.
+
+```{r ex9, exercise=TRUE}
+# 1. Create tableone stratified by group
+
+
+```
+
+```{r ex9-hint-1}
+# Hint: Use CreateTableOne() specifying the variables list, strata category, and the data frame.
+```
+
+```{r ex9-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex9-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 10: Summary Tables using gtsummary
+
+The `gtsummary` package creates presentation-ready summary tables for publications.
+
+### Practice Problem
+Using the preloaded data frame `scores`:
+
+1. Use `tbl_summary()` to create a summary table of scores stratified by `group`.
+
+```{r ex10, exercise=TRUE}
+# 1. Create gtsummary table
+
+
+```
+
+```{r ex10-hint-1}
+# Hint: Use tbl_summary() on the data frame specifying the strata category using the by argument.
+```
+
+```{r ex10-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex10-check}
+grade_this_code()
+```
+
+### Check Your Understanding & How to Report
+
+```{r ex10-quiz}
+quiz(
+  question("Under what condition is Fisher's Exact Test preferred over Pearson's Chi-Square Test?",
+    answer("When any expected cell count in the contingency table is less than 5.", correct = TRUE),
+    answer("When the sample size is extremely large.", message = "Incorrect. Chi-Square is suitable for large samples; Fisher's is exact and preferred for small cell counts."),
+    incorrect = "Correct! Fisher's Exact Test is preferred when expected cell frequencies are small (e.g. less than 5)."
+  )
+)
+```
+
+**How to Report in a Research Paper:**
+
+> Demographics and baseline clinical characteristics were summarized by treatment group using the tableone and gtsummary packages in R.
+
+---
+
+## Concept Check Quiz
+
+Test your understanding of Unit 4!
+
+```{r quiz}
+quiz(
+  question("Which test is appropriate for evaluating differences in categorical outcomes from paired observations (e.g. before/after on the same patients)?",
+    answer("Pearson's Chi-Square test", message = "No, standard Chi-Square assumes independent observations."),
+    answer("McNemar's test", correct = TRUE),
+    answer("Cochran-Mantel-Haenszel test", message = "No, CMH is for stratified independent tables."),
+    incorrect = "McNemar's test checks marginal homogeneity in paired contingency tables."
+  )
+)
+```

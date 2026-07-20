@@ -1,0 +1,402 @@
+---
+title: "Unit 5: Non-Parametric Tests and Applications"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(gradethis)
+tutorial_options(exercise.checker = gradethis::grade_learnr)
+knitr::opts_chunk$set(echo = FALSE)
+course_df <- read.csv("data/course_dataset.csv")
+exam_df <- read.csv("data/exam_pairs.csv")
+```
+
+## Welcome
+
+Welcome to Unit 5! This tutorial covers non-parametric statistical methods, including the exact binomial test, sign test, Wilcoxon tests (rank-sum and signed-rank), Kruskal-Wallis, Friedman, Kendall's W, post-hoc procedures, and clinical research reporting.
+
+---
+
+## Exercise 1: Exact Binomial Test
+
+The exact binomial test evaluates whether observed proportions deviate from a hypothesized probability.
+
+### Practice Problem
+Let's test if the proportion of patients receiving the `"New"` treatment differs significantly from a hypothesized 50% (`p = 0.5`).
+
+1. Count the number of patients receiving the `"New"` treatment in `course_df$treatment` and store it in `n_new`.
+2. Compute the total number of patients and store it in `n_total`.
+3. Use `binom.test()` to perform the exact binomial test.
+
+```{r ex1, exercise=TRUE}
+# 1. Count patients in New treatment group
+
+
+# 2. Count total patients
+
+
+# 3. Run binom.test()
+
+
+```
+
+```{r ex1-hint-1}
+# Hint: Calculate the count of successes and total trials. Pass these counts to binom.test() with p = 0.5.
+```
+
+```{r ex1-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex1-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 2: Sign Test
+
+The sign test evaluates whether the median of a variable differs from a hypothesized value.
+
+### Practice Problem
+Let's test if the median week 8 pain score (`week8_pain` in `course_df`) differs from a hypothesized clinical threshold of `4.0`.
+
+1. Compute the differences `diffs` between each score and `4.0`.
+2. Count the number of positive differences `n_pos` (greater than 0).
+3. Determine the number of valid (non-tied) cases `n_valid` (excluding exactly 0 differences).
+4. Use `binom.test()` to perform the two-tailed sign test.
+
+```{r ex2, exercise=TRUE}
+# 1. Compute differences from threshold 4.0
+
+
+# 2. Count positive differences n_pos
+
+
+# 3. Count non-tied differences n_valid
+
+
+# 4. Perform binom.test()
+
+
+```
+
+```{r ex2-hint-1}
+# Hint: Calculate the difference between the observations and the hypothesized threshold. Count the number of positive differences and valid (non-tied) differences. Pass these to binom.test() with p = 0.5.
+```
+
+```{r ex2-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex2-check}
+grade_this_code()
+```
+
+### Check Your Understanding & How to Report
+
+```{r ex2-quiz}
+quiz(
+  question("Based on the binom.test result, is the median week 8 pain score significantly different from the clinical threshold of 4.0?",
+    answer("Yes, the p-value is extremely small (p < 0.001), indicating a statistically significant difference.", correct = TRUE),
+    answer("No, the p-value is greater than 0.05.", message = "Incorrect. Check the p-value returned by the binomial test."),
+    incorrect = "Correct! The p-value is way below 0.05, so the difference is highly significant."
+  )
+)
+```
+
+**How to Report in a Research Paper:**
+
+> A sign test was conducted to determine whether the median week 8 pain score differed from a clinical threshold of 4.0. The median pain score (3.0) was significantly lower than the hypothesized threshold, $p < 0.001$.
+
+---
+
+## Exercise 3: Wilcoxon Rank-Sum Test (Mann-Whitney U)
+
+The Wilcoxon Rank-Sum test compares distributions of two independent groups.
+
+### Practice Problem
+Using `course_df`:
+
+1. Run a Wilcoxon Rank-Sum test to compare `week8_pain` levels between treatment groups (`treatment`). Use formula notation: `week8_pain ~ treatment`.
+
+```{r ex3, exercise=TRUE}
+# 1. Run Wilcoxon Rank-Sum test
+
+
+```
+
+```{r ex3-hint-1}
+# Hint: Use wilcox.test() with formula notation (variable ~ group) on the dataset.
+```
+
+```{r ex3-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex3-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 4: Wilcoxon Signed-Rank Test (Paired)
+
+The Wilcoxon Signed-Rank test evaluates differences in paired (repeated measures) observations.
+
+### Practice Problem
+Using the preloaded data frame `exam_df`:
+
+1. Perform a paired Wilcoxon Signed-Rank test to evaluate whether student scores increased from `pre_test` to `post_test`.
+2. Remember to enable `paired = TRUE`.
+
+```{r ex4, exercise=TRUE}
+# 1. Run paired Wilcoxon test on exam_df
+
+
+```
+
+```{r ex4-hint-1}
+# Hint: Use wilcox.test() specifying the pre-test and post-test vectors, and enable paired = TRUE.
+```
+
+```{r ex4-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex4-check}
+grade_this_code()
+```
+
+### Check Your Understanding & How to Report
+
+```{r ex4-quiz}
+quiz(
+  question("What does the Wilcoxon Signed-Rank test (paired) show about the change in scores from pre_test to post_test?",
+    answer("Scores significantly increased from pre_test to post_test (p < 0.01).", correct = TRUE),
+    answer("There was no statistically significant change in scores (p > 0.05).", message = "Incorrect. Check the paired Wilcoxon test p-value."),
+    incorrect = "Correct! The paired Wilcoxon signed-rank test yields a p-value less than 0.05, indicating a significant improvement."
+  )
+)
+```
+
+**How to Report in a Research Paper:**
+
+> A Wilcoxon Signed-Rank test was performed to evaluate the change in student exam scores. The results indicated a statistically significant increase from pre-test to post-test scores, $V = 8.5, p < 0.01$.
+
+---
+
+## Exercise 5: Kruskal-Wallis Test
+
+The Kruskal-Wallis test compares medians across three or more independent groups.
+
+### Practice Problem
+Let's test if the week 8 pain levels (`week8_pain`) differ across the three hospital sites (`site` in `course_df`).
+
+1. Run the overall `kruskal.test()` with the formula `week8_pain ~ site` and dataset `course_df`.
+
+```{r ex5, exercise=TRUE}
+# 1. Run overall Kruskal-Wallis test
+
+
+```
+
+```{r ex5-hint-1}
+# Hint: Use kruskal.test() with formula notation (variable ~ group) on the dataset.
+```
+
+```{r ex5-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex5-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 6: Post-Hoc Pairwise Wilcoxon Tests
+
+Post-hoc pairwise Wilcoxon tests identify which specific groups differ after a significant Kruskal-Wallis result.
+
+### Practice Problem
+Using `course_df`:
+
+1. Run post-hoc pairwise Wilcoxon Rank-Sum tests using `pairwise.wilcox.test()`.
+2. Apply a Bonferroni p-value adjustment.
+
+```{r ex6, exercise=TRUE}
+# 1. Run pairwise Wilcoxon tests with Bonferroni correction
+
+
+```
+
+```{r ex6-hint-1}
+# Hint: Use pairwise.wilcox.test() passing the numeric variable and grouping factor, specifying p.adjust.method = 'bonferroni'.
+```
+
+```{r ex6-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex6-check}
+grade_this_code()
+```
+
+### Check Your Understanding & How to Report
+
+```{r ex6-quiz}
+quiz(
+  question("Based on the overall Kruskal-Wallis test, do pain scores differ significantly across the three hospital sites?",
+    answer("No, there is no significant difference (p > 0.05).", correct = TRUE),
+    answer("Yes, there is a statistically significant difference across sites (p < 0.001).", message = "Incorrect. The Kruskal-Wallis test p-value is 0.455, which is greater than 0.05."),
+    incorrect = "Correct! The Kruskal-Wallis test is non-significant, showing no systematic differences across sites."
+  )
+)
+```
+
+**How to Report in a Research Paper:**
+
+> A Kruskal-Wallis test showed no significant difference in week 8 pain scores across the three hospital sites, $\chi^2(2) = 1.57, p = 0.455$.
+
+---
+
+## Exercise 7: Friedman Test
+
+The Friedman test evaluates differences in repeated measures designs across three or more conditions.
+
+### Practice Problem
+Let's analyze pain scores at three time points (baseline, week 4, week 8) structured inside `course_df` as columns `baseline_pain`, `week4_pain`, and `week8_pain`.
+
+1. The Friedman test requires data in a long format. Reshape the columns into a long format using the pre-built code below.
+2. Run `friedman.test()` using the long format formula `pain ~ time | id`.
+
+```{r ex7, exercise=TRUE}
+# Set up long format data
+n_subjects <- nrow(course_df)
+long_pain <- data.frame(
+  id = rep(1:n_subjects, times = 3),
+  time = rep(c("baseline", "week4", "week8"), each = n_subjects),
+  pain = c(course_df$baseline_pain, course_df$week4_pain, course_df$week8_pain)
+)
+
+# 1. Run the Friedman test on long_pain
+
+
+```
+
+```{r ex7-hint-1}
+# Hint: Use friedman.test() with formula notation (variable ~ time | subject_id) on the reshaped long dataset.
+```
+
+```{r ex7-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex7-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 8: Kendall's W Effect Size
+
+Kendall's W measures the effect size of repeated measures Friedman ANOVA.
+
+### Practice Problem
+Compute **Kendall's W** effect size from the Friedman Chi-Squared statistic ($Q$):
+$$W = \frac{Q}{N(k-1)}$$
+Where $Q = 264.98$ is the Friedman test statistic, $N = 180$ is the sample size, and $k = 3$ is the number of time points.
+
+```{r ex8, exercise=TRUE}
+Q <- 264.98
+N <- 180
+k <- 3
+
+# 1. Compute Kendall's W
+
+
+```
+
+```{r ex8-hint-1}
+# Hint: Compute Kendall's W manually using the Friedman chi-squared statistic, sample size, and number of conditions.
+```
+
+```{r ex8-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex8-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 9: Non-Parametric Test Selection Scenarios
+
+Selecting the appropriate statistical test is essential for robust data analysis.
+
+### Practice Problem
+Assume we are testing student performance grades (ordinal scales) across 4 different class sections (independent groups). Which test is appropriate?
+Write the name of the correct R function as a string (either `"wilcox.test"` or `"kruskal.test"` or `"friedman.test"`).
+
+```{r ex9, exercise=TRUE}
+# Write the correct function name as a string:
+
+
+```
+
+```{r ex9-hint-1}
+# Hint: Recall the appropriate non-parametric analog for comparing ordinal scores across three or more independent groups.
+```
+
+```{r ex9-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex9-check}
+grade_this_code()
+```
+
+### Check Your Understanding & How to Report
+
+```{r ex9-quiz}
+quiz(
+  question("What does the Friedman test and its effect size suggest about pain levels over time?",
+    answer("Pain levels changed significantly over the three time points (p < 0.001) with a moderate-to-strong effect size (Kendall's W = 0.74).", correct = TRUE),
+    answer("There was a significant change but with a negligible effect size.", message = "Incorrect. Kendall's W is 0.74, which indicates a strong effect."),
+    incorrect = "Correct! The Friedman test shows highly significant differences across time points, and Kendall's W indicates a strong effect size."
+  )
+)
+```
+
+**How to Report in a Research Paper:**
+
+> A Friedman test was conducted to compare pain scores across three time points (baseline, week 4, week 8). Pain levels differed significantly across time, $\chi^2(2) = 264.98, p < 0.001$, with a strong effect size, Kendall's $W = 0.74$.
+
+---
+
+## Concept Check Quiz
+
+Test your understanding of Unit 5!
+
+```{r quiz}
+quiz(
+  question("Under what condition is Kruskal-Wallis test used instead of one-way ANOVA?",
+    answer("When the dependent variable is ordinal or when normality assumptions are violated.", correct = TRUE),
+    answer("When there are exactly two groups.", message = "No, Kruskal-Wallis is for compares medians across 3 or more groups."),
+    incorrect = "Correct! Kruskal-Wallis is the non-parametric analogue of one-way ANOVA."
+  )
+)
+```

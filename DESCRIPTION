@@ -1,0 +1,20 @@
+Package: scnpir
+Type: Package
+Title: Interactive R Tutorials for MAHE Statistical Computing Course
+Version: 0.1.0
+Author: Shrikrishna Bhat Kapu
+Maintainer: Shrikrishna Bhat Kapu <sankhyashodh@gmail.com>
+Description: Interactive learnr tutorials for learning R programming,
+    descriptive statistics, confidence intervals, contingency tables,
+    and non-parametric inference.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Imports:
+    learnr,
+    gradethis,
+    boot,
+    tableone,
+    gtsummary,
+    psych
+RoxygenNote: 7.2.3

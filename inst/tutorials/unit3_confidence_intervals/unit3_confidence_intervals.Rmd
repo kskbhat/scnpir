@@ -1,0 +1,379 @@
+---
+title: "Unit 3: Confidence Interval Estimation and Resampling Methods"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(gradethis)
+tutorial_options(exercise.checker = gradethis::grade_learnr)
+library(boot)
+knitr::opts_chunk$set(echo = FALSE)
+income <- read.csv("data/survey_income.csv")
+```
+
+## Welcome
+
+Welcome to Unit 3! This tutorial covers statistical estimation, manual and R-based confidence intervals for means and proportions, and resampling methods (specifically the bootstrap algorithm for estimating standard errors and various confidence intervals).
+
+---
+
+## Exercise 1: Manual t-Test Calculations
+
+Understanding the manual calculation of the $t$-statistic and its corresponding $p$-value.
+
+### Practice Problem
+Using base R mathematical functions and the standard `mtcars$mpg` vector:
+
+1. Compute the sample size `n`, mean `xbar`, and standard deviation `s`.
+2. Compute the standard error of the mean: `se <- s / sqrt(n)`.
+3. Compute the $t$-statistic for testing the null hypothesis $H_0: \mu = 20$:
+   $$t = \frac{\bar{x} - \mu_0}{SE}$$
+
+4. Calculate the two-tailed $p$-value using the cumulative density function `pt()`.
+
+```{r ex1, exercise=TRUE}
+# 1. Compute n, xbar, s
+
+
+# 2. Compute standard error se
+
+
+# 3. Calculate t-statistic t_stat (null mu0 = 20)
+
+
+# 4. Calculate two-tailed p-value p_val
+
+
+```
+
+```{r ex1-hint-1}
+# Hint: Recall that the standard error is standard deviation divided by the square root of sample size. The t-statistic is (mean - hypothesized_mean) / standard_error. The two-tailed p-value is calculated using pt().
+```
+
+```{r ex1-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex1-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 2: Using the t.test() Function
+
+R's built-in `t.test()` computes standard parametric confidence intervals.
+
+### Practice Problem
+Using `t.test()` and the `mtcars$mpg` vector:
+
+1. Run a one-sample $t$-test testing the null hypothesis $H_0: \mu = 20$.
+2. Store the output in a variable named `result`.
+3. Extract the 95% confidence interval endpoint vector from `result$conf.int`.
+
+```{r ex2, exercise=TRUE}
+# 1. Run t.test and store in result
+
+
+# 2. Extract confidence interval vector
+
+
+```
+
+```{r ex2-hint-1}
+# Hint: Use the built-in t.test() function specifying the data vector and the null hypothesis mu. Extract the confidence interval vector using the $conf.int attribute.
+```
+
+```{r ex2-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex2-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 3: Confidence Intervals for Proportions
+
+R's `prop.test()` calculates standard confidence intervals for binary outcomes.
+
+### Practice Problem
+Consider a clinical study where 25 out of 60 patients reported complete pain relief.
+
+1. Run a one-sample proportions test **without** Yates' continuity correction (`correct = FALSE`).
+2. Run the proportions test **with** Yates' continuity correction (default).
+
+```{r ex3, exercise=TRUE}
+# 1. Run prop.test without correction
+
+
+# 2. Run prop.test with correction
+
+
+```
+
+```{r ex3-hint-1}
+# Hint: Use prop.test() specifying the number of successes, total sample size, and correct = FALSE to disable Yates' correction.
+```
+
+```{r ex3-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex3-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 4: Defining a Bootstrap Estimator Function
+
+Bootstrapping requires defining a statistic function with signature `statistic(data, indices)`.
+
+### Practice Problem
+Write a function named `mean_fn` that:
+
+1. Takes two arguments: `data` and `indices`.
+2. Subsets the data vector using the indices: `d <- data[indices]`.
+3. Returns the mean of the subsetted vector `d`.
+
+```{r ex4, exercise=TRUE}
+mean_fn <- function(data, indices) {
+  # Write function here:
+  
+  
+}
+```
+
+```{r ex4-hint-1}
+# Hint: Define a function with arguments data and indices. Inside the function, subset the data vector using the indices, and return the mean of the subsetted data.
+```
+
+```{r ex4-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex4-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 5: Running the Bootstrap
+
+The `boot` package runs the resampling algorithm and calculates standard errors.
+
+### Practice Problem
+Using the preloaded data frame `income$monthly_income` and custom `mean_fn`:
+
+1. Use `boot()` to run `R = 500` bootstrap replications. Store the result in `boot_out`.
+2. Extract the bootstrap standard error from `boot_out`. (Hint: Compute the standard deviation of bootstrap replicates `boot_out$t`).
+
+```{r ex5, exercise=TRUE}
+mean_fn <- function(data, indices) {
+  mean(data[indices])
+}
+
+# 1. Run boot() for 500 replicates
+
+
+# 2. Compute bootstrap standard error
+
+
+```
+
+```{r ex5-hint-1}
+# Hint: Use boot() from the boot package specifying the data, your custom statistic function, and the number of replicates (R = 500). Calculate the standard deviation of the bootstrap replicates (stored in boot_out$t) to estimate the standard error.
+```
+
+```{r ex5-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex5-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 6: Bootstrap Percentile Confidence Intervals
+
+The percentile interval extracts the alpha boundaries directly from sorted replicates.
+
+### Practice Problem
+Using the preloaded `boot_out` object:
+
+1. Run `boot.ci()` to compute the 95% bootstrap confidence interval.
+2. Select the `"perc"` (percentile) interval type explicitly.
+
+```{r ex6, exercise=TRUE}
+# Set up boot object
+mean_fn <- function(data, indices) { mean(data[indices]) }
+set.seed(123)
+boot_out <- boot(data = income$monthly_income, statistic = mean_fn, R = 200)
+
+# 1. Compute percentile bootstrap CI using boot.ci()
+
+
+```
+
+```{r ex6-hint-1}
+# Hint: Use boot.ci() passing your boot object and setting type = 'perc'.
+```
+
+```{r ex6-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex6-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 7: Bootstrap BCa Confidence Intervals
+
+The Bias-Corrected and Accelerated (BCa) interval adjusts for skewness and bias.
+
+### Practice Problem
+Using the preloaded `boot_out` object:
+
+1. Run `boot.ci()` to compute the 95% BCa confidence interval.
+2. Select the `"bca"` interval type explicitly.
+
+```{r ex7, exercise=TRUE}
+# Set up boot object
+mean_fn <- function(data, indices) { mean(data[indices]) }
+set.seed(123)
+boot_out <- boot(data = income$monthly_income, statistic = mean_fn, R = 200)
+
+# 1. Compute BCa bootstrap CI using boot.ci()
+
+
+```
+
+```{r ex7-hint-1}
+# Hint: Use boot.ci() passing your boot object and setting type = 'bca'.
+```
+
+```{r ex7-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex7-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 8: Bootstrapping a Proportion
+
+Bootstrapping a proportion requires resampling a binary indicator vector.
+
+### Practice Problem
+Consider a sample where 30 out of 100 subjects responded.
+
+1. Create a binary indicator vector `resp <- c(rep(1, 30), rep(0, 70))`.
+2. Define a function `prop_fn <- function(data, indices) { mean(data[indices]) }`.
+3. Use `boot()` to run `R = 200` bootstrap replications of `resp` using `prop_fn`.
+
+```{r ex8, exercise=TRUE}
+# 1. Create binary vector resp
+
+
+# 2. Define prop_fn
+
+
+# 3. Run boot() on resp
+
+
+```
+
+```{r ex8-hint-1}
+# Hint: Create a binary vector of ones and zeros. Define a proportion estimator function and pass it to boot() with R = 200.
+```
+
+```{r ex8-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex8-check}
+grade_this_code()
+```
+
+---
+
+## Exercise 9: Bootstrapping a Correlation Coefficient
+
+Bootstrapping can be used to estimate confidence intervals for correlation coefficients.
+
+### Practice Problem
+Let's bootstrap the correlation coefficient between variables `mpg` and `hp` in `mtcars`.
+
+1. Write a function `cor_fn <- function(data, indices) { cor(data$mpg[indices], data$hp[indices]) }`.
+2. Use `boot()` to run `R = 200` bootstrap replications on the `mtcars` data frame using `cor_fn`.
+
+```{r ex9, exercise=TRUE}
+# 1. Define cor_fn
+
+
+# 2. Run boot() on mtcars data frame
+
+
+```
+
+```{r ex9-hint-1}
+# Hint: Define a correlation estimator function that subsets both variables from the data frame based on indices. Pass this to boot() with the mtcars data frame.
+```
+
+```{r ex9-solution}
+  # solution/hint content purged from public repository history
+
+```
+
+```{r ex9-check}
+grade_this_code()
+```
+
+### Check Your Understanding & How to Report
+
+```{r ex9-quiz}
+quiz(
+  question("Which type of bootstrap confidence interval adjusts for both bias and skewness in the bootstrap distribution?",
+    answer("Percentile interval", message = "No, percentile interval assumes a symmetric bootstrap distribution."),
+    answer("BCa (Bias-Corrected and Accelerated) interval", correct = TRUE),
+    incorrect = "Correct! BCa is preferred when the bootstrap distribution is skewed."
+  )
+)
+```
+
+**How to Report in a Research Paper:**
+
+> A non-parametric bootstrap with 1,000 replications was used to estimate standard errors and confidence intervals. The BCa bootstrap 95% confidence interval was $BC_a [\$13,248, \$15,772]$.
+
+---
+
+## Concept Check Quiz
+
+Test your understanding of Unit 3!
+
+```{r quiz}
+quiz(
+  question("Why are non-parametric bootstrap confidence intervals preferred over standard parametric intervals?",
+    answer("They do not make distributional assumptions (such as normality) and are robust to skewness.", correct = TRUE),
+    answer("They require much smaller sample sizes.", message = "No, bootstrap actually requires a representative sample size to work well."),
+    incorrect = "Correct! Bootstrapping relies on the empirical distribution of the sample."
+  )
+)
+```

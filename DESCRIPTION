@@ -15,6 +15,9 @@ BugReports: https://github.com/kskbhat/scnpir/issues
 Imports:
     learnr,
     gradethis,
+    shiny,
+    ggplot2,
+    dplyr,
     boot,
     tableone,
     gtsummary,

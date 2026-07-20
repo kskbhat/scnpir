@@ -6,8 +6,8 @@
 
 [![Install from GitHub](https://img.shields.io/badge/📦_R_Package-Install_from_GitHub-2ea44f?style=for-the-badge)](https://github.com/kskbhat/scnpir)
 [![Course Notes](https://img.shields.io/badge/📖_Course_Notes-Open_Bookdown-blue?style=for-the-badge)](https://kskbhat.github.io/Teaching/mahe/Statistical%20Computing%20and%20Non%20parametric%20inference%20using%20R/_book/)
-[![R-CMD-check](https://img.shields.io/github/actions/workflow/status/kskbhat/scnpir/R-CMD-check.yaml?branch=main&label=R--CMD--check&style=for-the-badge)](https://github.com/kskbhat/scnpir/actions/workflows/R-CMD-check.yaml)
-[![Codecov](https://img.shields.io/codecov/c/github/kskbhat/scnpir?label=Codecov&logo=codecov&style=for-the-badge)](https://app.codecov.io/gh/kskbhat/scnpir)
+[![R-CMD-check](https://github.com/kskbhat/scnpir/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/kskbhat/scnpir/actions/workflows/R-CMD-check.yaml)
+[![codecov](https://codecov.io/gh/kskbhat/scnpir/branch/main/graph/badge.svg)](https://codecov.io/gh/kskbhat/scnpir)
 
 </div>
 

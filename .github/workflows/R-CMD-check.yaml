@@ -27,7 +27,7 @@ jobs:
           extra-packages: |
             any::rcmdcheck
             any::learnr
-            any::gradethis
+            rstudio/gradethis
             any::shiny
             any::ggplot2
             any::dplyr
@@ -35,5 +35,8 @@ jobs:
             any::tableone
             any::gtsummary
             any::psych
+            any::covr
 
       - uses: r-lib/actions/check-r-package@v2
+        with:
+          error-on: '"error"'

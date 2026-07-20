@@ -27,7 +27,7 @@ jobs:
             any::covr
             any::testthat
             any::learnr
-            any::gradethis
+            rstudio/gradethis
             any::shiny
             any::ggplot2
             any::dplyr

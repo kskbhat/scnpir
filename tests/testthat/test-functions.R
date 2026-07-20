@@ -1,6 +1,6 @@
 test_that("list_tutorials returns available scnpir tutorials", {
   avail <- list_tutorials()
-  expect_true(is.data.frame(avail) || "name" %in% names(avail))
+  expect_true(is.data.frame(avail))
 })
 
 test_that("get_dataset_path returns valid path for existing datasets", {
@@ -16,7 +16,6 @@ test_that("get_dataset_path throws error for non-existent dataset", {
 })
 
 test_that("unit launcher functions execute learnr::run_tutorial", {
-  # Temporarily trace learnr::run_tutorial to execute functions without launching browser
   suppressMessages(trace(learnr::run_tutorial, tracer = quote(return(invisible(TRUE))), print = FALSE))
   on.exit(suppressWarnings(untrace(learnr::run_tutorial)), add = TRUE)
 

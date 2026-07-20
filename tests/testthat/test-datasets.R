@@ -8,6 +8,13 @@ test_that("all package datasets exist in extdata and load cleanly", {
 
   for (ds in datasets) {
     ds_path <- system.file("extdata", ds, package = "scnpir")
+    if (!file.exists(ds_path) || ds_path == "") {
+      ds_path <- file.path("..", "..", "inst", "extdata", ds)
+    }
+    if (!file.exists(ds_path) || ds_path == "") {
+      ds_path <- file.path("inst", "extdata", ds)
+    }
+
     expect_true(file.exists(ds_path), info = paste("Missing dataset:", ds))
 
     df <- read.csv(ds_path)

@@ -22,6 +22,12 @@ list_tutorials <- function() {
 get_dataset_path <- function(name) {
   path <- system.file("extdata", name, package = "scnpir")
   if (!file.exists(path) || path == "") {
+    path <- file.path("inst", "extdata", name)
+  }
+  if (!file.exists(path) || path == "") {
+    path <- file.path("..", "..", "inst", "extdata", name)
+  }
+  if (!file.exists(path) || path == "") {
     stop(paste("Dataset", name, "not found in scnpir package."))
   }
   path

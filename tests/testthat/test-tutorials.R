@@ -24,6 +24,8 @@ test_that("tutorials can be discovered by learnr", {
 })
 
 test_that("all 5 learnr tutorials pre-render and validate cleanly without errors", {
+  skip_if_not(rmarkdown::pandoc_available(), "Pandoc not available for rendering")
+
   tutorials <- c(
     "unit1_r_basics",
     "unit2_descriptive_stats",

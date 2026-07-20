@@ -17,6 +17,7 @@ Imports:
     gradethis,
     rmarkdown,
     knitr,
+    readxl,
     shiny,
     ggplot2,
     dplyr,

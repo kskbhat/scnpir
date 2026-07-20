@@ -7,14 +7,14 @@
 Department of Data Science · Prasanna School of Public Health  
 Manipal Academy of Higher Education (MAHE)
 
-[![Install from GitHub](https://img.shields.io/badge/📦_R_Package-Install_from_GitHub-2ea44f?style=for-the-badge)](https://github.com/kskbhat/Teaching/tree/main/mahe/scnpir)
+[![Install from GitHub](https://img.shields.io/badge/📦_R_Package-Install_from_GitHub-2ea44f?style=for-the-badge)](https://github.com/kskbhat/scnpir)
 [![Course Notes](https://img.shields.io/badge/📖_Course_Notes-Open_Bookdown-blue?style=for-the-badge)](https://kskbhat.github.io/Teaching/mahe/Statistical%20Computing%20and%20Non%20parametric%20inference%20using%20R/_book/)
 
 </div>
 
 ---
 
-This R package contains interactive `learnr` tutorials for the course **Statistical Computing and Non-Parametric Inference using R (DDS 6103)** at MAHE. Each tutorial corresponds to one unit of the course syllabus and provides hands-on, browser-based exercises with immediate feedback.
+This R package contains interactive `learnr` tutorials for the course **Statistical Computing and Non-Parametric Inference using R (DDS 6103)** at MAHE. Each tutorial corresponds to one unit of the official course syllabus and provides hands-on, browser-based exercises with progressive hints and automated feedback via `gradethis`.
 
 ---
 
@@ -28,11 +28,8 @@ if (!requireNamespace("remotes", quietly = TRUE)) {
   install.packages("remotes")
 }
 
-# Install the scnpir package from GitHub
-remotes::install_github(
-  "kskbhat/Teaching",
-  subdir = "mahe/scnpir"
-)
+# Install the scnpir package directly from GitHub
+remotes::install_github("kskbhat/scnpir")
 ```
 
 ### Step 2: Run a Tutorial
@@ -42,19 +39,19 @@ remotes::install_github(
 ```r
 library(scnpir)
 
-# Unit 1: Introduction to R
+# Unit 1: Introduction to R and Data Structures
 learnr::run_tutorial("unit1_r_basics", package = "scnpir")
 
-# Unit 2: Descriptive Statistics
+# Unit 2: Descriptive Statistics and Programming Fundamentals
 learnr::run_tutorial("unit2_descriptive_stats", package = "scnpir")
 
-# Unit 3: Confidence Intervals & Bootstrap
+# Unit 3: Confidence Interval Estimation & Resampling
 learnr::run_tutorial("unit3_confidence_intervals", package = "scnpir")
 
-# Unit 4: Contingency Tables
+# Unit 4: Contingency Tables & Compact Reporting
 learnr::run_tutorial("unit4_contingency_tables", package = "scnpir")
 
-# Unit 5: Non-Parametric Tests
+# Unit 5: Non-Parametric Tests and Applications
 learnr::run_tutorial("unit5_nonparametric_tests", package = "scnpir")
 ```
 
@@ -69,13 +66,13 @@ learnr::run_tutorial("unit5_nonparametric_tests", package = "scnpir")
 
 ## 📘 Tutorial Coverage
 
-| Tutorial | Unit | Topics Covered |
+| Tutorial | Unit | Official Topics Covered |
 |:---|:--:|:---|
-| `unit1_r_basics` | 1 | R environment, data types, vectors, matrices, data frames, file import |
-| `unit2_descriptive_stats` | 2 | Descriptive statistics, loops, functions, dplyr, ggplot2 |
-| `unit3_confidence_intervals` | 3 | Bootstrap resampling, percentile CIs, non-parametric estimation |
-| `unit4_contingency_tables` | 4 | Chi-square, Fisher's exact, kappa, tableone, gtsummary |
-| `unit5_nonparametric_tests` | 5 | Sign test, Mann-Whitney U, Wilcoxon, Kruskal-Wallis, Friedman |
+| `unit1_r_basics` | 1 | RStudio, vectors, matrices, arrays, data frames, factors, lists, data import |
+| `unit2_descriptive_stats` | 2 | Central tendency, dispersion, skewness/kurtosis, conditionals, loops, functions |
+| `unit3_confidence_intervals` | 3 | Resampling methods, bootstrap standard error, percentile CIs, proportion CIs |
+| `unit4_contingency_tables` | 4 | Chi-square, Fisher's exact, trend tests, kappa agreement, McNemar, `tableone`, `gtsummary` |
+| `unit5_nonparametric_tests` | 5 | Binomial test, Sign test, Mann-Whitney U, Wilcoxon, Kruskal-Wallis, Friedman ANOVA |
 
 ---
 
@@ -96,15 +93,12 @@ scnpir/
 
 ---
 
-## 📚 Dependencies
+## 📚 Official Course References
 
-The package requires the following R packages (installed automatically):
-
-| Package | Purpose |
-|:---|:---|
-| `learnr` | Interactive tutorial framework |
-| `gradethis` | Answer checking and feedback |
-| `boot` | Bootstrap resampling (Unit 3) |
-| `tableone` | Baseline table generation (Unit 4) |
-| `gtsummary` | Publication-ready tables (Unit 4) |
-| `psych` | Descriptive stats & kappa (Units 2, 4) |
+1. R Core Team (2023). *An Introduction to R*. Vienna: R Foundation for Statistical Computing.
+2. Wickham H., Grolemund G. (2017). *R for Data Science*. O'Reilly Media.
+3. Venables W.N., Ripley B.D. (2002). *Modern Applied Statistics with S*. 4th ed. Springer.
+4. Efron B., Tibshirani R.J. (1993). *An Introduction to the Bootstrap*. Chapman & Hall/CRC.
+5. Hollander M., Wolfe D.A., Chicken E. (2014). *Nonparametric Statistical Methods*. 3rd ed. Wiley.
+6. Conover W.J. (1999). *Practical Nonparametric Statistics*. 3rd ed. Wiley.
+7. Agresti A. (2013). *Categorical Data Analysis*. 3rd ed. Wiley.

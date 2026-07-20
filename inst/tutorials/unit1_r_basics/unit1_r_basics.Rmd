@@ -40,12 +40,29 @@ Documenting your code and recording execution times are critical for reproducibl
 ```
 
 ```{r ex1-hint-1}
-# Hint: Recall that you can retrieve the current system time using Sys.time(). To format it, use format() with standard formatting strings (e.g., %Y for year, %m for month, %d for day, %H for hour, %M for minute, %S for second).
+# Hint 1 (Concept): Use Sys.time() to retrieve the current system time, and format() with cat() to format and display custom text.
+```
+
+```{r ex1-hint-2}
+# Hint 2 (Code Skeleton):
+# 1. Comment
+# 2. Sys.time()
+# 3. cat("Execution Timestamp:", format(Sys.time(), "___"), "\n")
+```
+
+```{r ex1-hint-3}
+# Hint 3 (Detailed Guide): Use format(Sys.time(), "%Y-%m-%d %H:%M:%S") inside cat() to print an ISO-standard formatted timestamp.
 ```
 
 ```{r ex1-solution}
-  # solution/hint content purged from public repository history
+# Unit 1: Comments and Timestamps
+# Author: Student
 
+# 2. Print current date and time
+Sys.time()
+
+# 3. Print formatted timestamp
+cat("Execution Timestamp:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"), "\n")
 ```
 
 ```{r ex1-check}
@@ -76,12 +93,29 @@ Vectors are 1-dimensional arrays holding elements of the same data type.
 ```
 
 ```{r ex2-hint-1}
-# Hint: Use the colon operator (:) to generate consecutive integers. Use seq() with appropriate from, to, and by arguments to create the second sequence. Subset both using square brackets [1:6] and add them together.
+# Hint 1 (Concept): Use the colon operator (:) for consecutive integers, seq() with from, to, and by arguments for sequences, and [] for indexing.
+```
+
+```{r ex2-hint-2}
+# Hint 2 (Code Skeleton):
+v1 <- 5:15
+v2 <- seq(from = 10, to = 30, by = 2)
+v1[1:6] + v2[1:6]
+```
+
+```{r ex2-hint-3}
+# Hint 3 (Detailed Guide): Vector addition in R is element-wise. Subsetting both vectors with [1:6] ensures you add matching 6 elements.
 ```
 
 ```{r ex2-solution}
-  # solution/hint content purged from public repository history
+# 1. Create v1
+v1 <- 5:15
 
+# 2. Create v2
+v2 <- seq(from = 10, to = 30, by = 2)
+
+# 3. Add first 6 elements of v1 and v2
+v1[1:6] + v2[1:6]
 ```
 
 ```{r ex2-check}
@@ -116,12 +150,31 @@ temp <- c(36.5, 37.2, 38.9, 39.1, 36.8)
 ```
 
 ```{r ex3-hint-1}
-# Hint: Use square brackets to extract specific elements by position. To exclude an element, prefix the index with a minus sign (-).
+# Hint 1 (Concept): Use square brackets [] to extract elements by position. To exclude an element, use a negative index like [-2].
+```
+
+```{r ex3-hint-2}
+# Hint 2 (Code Skeleton):
+temp[3]
+temp[length(temp)]
+temp[-2]
+```
+
+```{r ex3-hint-3}
+# Hint 3 (Detailed Guide): length(temp) dynamically finds the index of the last element, regardless of how long temp is.
 ```
 
 ```{r ex3-solution}
-  # solution/hint content purged from public repository history
+temp <- c(36.5, 37.2, 38.9, 39.1, 36.8)
 
+# 1. Extract 3rd element
+temp[3]
+
+# 2. Extract last element
+temp[length(temp)]
+
+# 3. Extract all except 2nd element
+temp[-2]
 ```
 
 ```{r ex3-check}
@@ -152,12 +205,27 @@ scores <- c(45, 82, 91, 58, 73, 64, 88)
 ```
 
 ```{r ex4-hint-1}
-# Hint: Apply a logical comparison operator (like >=) directly to the vector. Then subset the vector using this logical result inside square brackets.
+# Hint 1 (Concept): Apply logical operator >= directly to a vector to get a boolean vector. Place that condition inside [] to subset the values.
+```
+
+```{r ex4-hint-2}
+# Hint 2 (Code Skeleton):
+scores >= 70
+scores[scores >= 70]
+```
+
+```{r ex4-hint-3}
+# Hint 3 (Detailed Guide): Logical indexing filters the vector keeping only TRUE elements. `scores >= 70` evaluates to logical TRUE/FALSE values.
 ```
 
 ```{r ex4-solution}
-  # solution/hint content purged from public repository history
+scores <- c(45, 82, 91, 58, 73, 64, 88)
 
+# 1. Logical vector for scores >= 70
+scores >= 70
+
+# 2. Extract scores >= 70
+scores[scores >= 70]
 ```
 
 ```{r ex4-check}
@@ -188,12 +256,31 @@ R provides built-in functions for mathematical calculations and rounding.
 ```
 
 ```{r ex5-hint-1}
-# Hint: Use abs() for absolute values, log() with base 10 (or log() specifying base), and floor() or ceiling() for rounding down or up. Remember that sqrt() calculates square roots.
+# Hint 1 (Concept): Use abs() for absolute values, log() for natural logarithm, round() for rounding to decimals, and floor() to round down.
+```
+
+```{r ex5-hint-2}
+# Hint 2 (Code Skeleton):
+abs(x)
+round(log(100), digits = 2)
+floor(sqrt(50))
+```
+
+```{r ex5-hint-3}
+# Hint 3 (Detailed Guide): log() in R defaults to natural logarithm (base e). Use digits = 2 in round() to keep two decimal places.
 ```
 
 ```{r ex5-solution}
-  # solution/hint content purged from public repository history
+x <- c(-5.6, 2.3, -9.1)
 
+# 1. Absolute values
+abs(x)
+
+# 2. Log of 100 rounded to 2 decimals
+round(log(100), 2)
+
+# 3. Square root of 50 rounded down
+floor(sqrt(50))
 ```
 
 ```{r ex5-check}
@@ -220,12 +307,28 @@ A matrix is a 2-dimensional vector with rows and columns.
 ```
 
 ```{r ex6-hint-1}
-# Hint: Use matrix() specifying the data, nrow, ncol, and byrow = TRUE. Row names and column names can be assigned using rownames() and colnames() on the matrix object.
+# Hint 1 (Concept): Use matrix() with nrow, ncol, and byrow = TRUE. Use rownames() and colnames() to assign dimension names.
+```
+
+```{r ex6-hint-2}
+# Hint 2 (Code Skeleton):
+my_mat <- matrix(1:9, nrow = 3, ncol = 3, byrow = TRUE)
+rownames(my_mat) <- c("Row1", "Row2", "Row3")
+colnames(my_mat) <- c("Col1", "Col2", "Col3")
+```
+
+```{r ex6-hint-3}
+# Hint 3 (Detailed Guide): Setting `byrow = TRUE` fills the matrix row-by-row (1,2,3 in row 1; 4,5,6 in row 2; 7,8,9 in row 3).
 ```
 
 ```{r ex6-solution}
-  # solution/hint content purged from public repository history
+# 1. Create 3x3 matrix filled by row
+my_mat <- matrix(1:9, nrow = 3, ncol = 3, byrow = TRUE)
 
+# 2. Assign rownames and colnames
+rownames(my_mat) <- c("Row1", "Row2", "Row3")
+colnames(my_mat) <- c("Col1", "Col2", "Col3")
+my_mat
 ```
 
 ```{r ex6-check}
@@ -260,12 +363,31 @@ mat <- matrix(10:18, nrow = 3, byrow = TRUE)
 ```
 
 ```{r ex7-hint-1}
-# Hint: Subset a matrix using the format mat[row, column]. To select an entire row or column, leave the other dimension blank.
+# Hint 1 (Concept): Subset a matrix using mat[row, col]. Leaving row or column blank extracts the entire row or column.
+```
+
+```{r ex7-hint-2}
+# Hint 2 (Code Skeleton):
+mat[2, ]
+mat[, 3]
+mat[2, 3]
+```
+
+```{r ex7-hint-3}
+# Hint 3 (Detailed Guide): `mat[2, ]` selects row 2 and all columns. `mat[, 3]` selects all rows and column 3.
 ```
 
 ```{r ex7-solution}
-  # solution/hint content purged from public repository history
+mat <- matrix(10:18, nrow = 3, byrow = TRUE)
 
+# 1. Extract 2nd row
+mat[2, ]
+
+# 2. Extract 3rd column
+mat[, 3]
+
+# 3. Extract element at row 2, col 3
+mat[2, 3]
 ```
 
 ```{r ex7-check}
@@ -296,12 +418,27 @@ mat <- matrix(1:12, nrow = 3)
 ```
 
 ```{r ex8-hint-1}
-# Hint: Use rowSums() to compute sums for each row and colMeans() to compute means for each column of the matrix.
+# Hint 1 (Concept): Use built-in matrix summary functions rowSums() for row totals and colMeans() for column averages.
+```
+
+```{r ex8-hint-2}
+# Hint 2 (Code Skeleton):
+rowSums(mat)
+colMeans(mat)
+```
+
+```{r ex8-hint-3}
+# Hint 3 (Detailed Guide): rowSums(mat) operates across columns for each row, returning a numeric vector of row sums.
 ```
 
 ```{r ex8-solution}
-  # solution/hint content purged from public repository history
+mat <- matrix(1:12, nrow = 3)
 
+# 1. Sum of each row
+rowSums(mat)
+
+# 2. Mean of each column
+colMeans(mat)
 ```
 
 ```{r ex8-check}
@@ -325,12 +462,22 @@ Arrays generalize matrices to three or more dimensions.
 ```
 
 ```{r ex9-hint-1}
-# Hint: Use array() specifying the data vector and a dim argument as a numeric vector representing the dimensions (rows, columns, layers).
+# Hint 1 (Concept): Use array() specifying the data vector and a dim argument as a numeric vector c(rows, cols, layers).
+```
+
+```{r ex9-hint-2}
+# Hint 2 (Code Skeleton):
+my_arr <- array(1:12, dim = c(2, 3, 2))
+```
+
+```{r ex9-hint-3}
+# Hint 3 (Detailed Guide): `dim = c(2, 3, 2)` creates an array with 2 rows, 3 columns, and 2 slices/layers.
 ```
 
 ```{r ex9-solution}
-  # solution/hint content purged from public repository history
-
+# 1. Create a 3D array of size 2x3x2
+my_arr <- array(1:12, dim = c(2, 3, 2))
+my_arr
 ```
 
 ```{r ex9-check}
@@ -356,12 +503,30 @@ Lists are ordered containers that can hold elements of different modes and lengt
 ```
 
 ```{r ex10-hint-1}
-# Hint: Use list() specifying named arguments (e.g. name = value) for the id, symptoms, and admitted status.
+# Hint 1 (Concept): Use list() with named arguments to store heterogeneous data types (numeric, character vector, logical).
+```
+
+```{r ex10-hint-2}
+# Hint 2 (Code Skeleton):
+patient_record <- list(
+  id = 402,
+  symptoms = c("cough", "fever"),
+  admitted = TRUE
+)
+```
+
+```{r ex10-hint-3}
+# Hint 3 (Detailed Guide): Each element in a list can be a different data type and length. Use named tags like `id = `, `symptoms = `.
 ```
 
 ```{r ex10-solution}
-  # solution/hint content purged from public repository history
-
+# 1. Create patient_record list
+patient_record <- list(
+  id = 402,
+  symptoms = c("cough", "fever"),
+  admitted = TRUE
+)
+patient_record
 ```
 
 ```{r ex10-check}
@@ -392,12 +557,27 @@ record <- list(id = 402, symptoms = c("cough", "fever"), admitted = TRUE)
 ```
 
 ```{r ex11-hint-1}
-# Hint: To extract the actual cargo of a list element (like a vector), use the double square brackets [[ ]] or the dollar sign $. Single square brackets [ ] will return a sublist container.
+# Hint 1 (Concept): Use $ or [[ ]] to extract list contents directly as a vector. Use [ ] to extract a sublist container.
+```
+
+```{r ex11-hint-2}
+# Hint 2 (Code Skeleton):
+record$symptoms   # or record[["symptoms"]]
+record["id"]
+```
+
+```{r ex11-hint-3}
+# Hint 3 (Detailed Guide): `record$symptoms` extracts the character vector. `record["id"]` returns a sublist containing `id`.
 ```
 
 ```{r ex11-solution}
-  # solution/hint content purged from public repository history
+record <- list(id = 402, symptoms = c("cough", "fever"), admitted = TRUE)
 
+# 1. Extract symptoms vector
+record$symptoms
+
+# 2. Extract id sublist
+record["id"]
 ```
 
 ```{r ex11-check}
@@ -425,12 +605,24 @@ responses <- c("Agree", "Disagree", "Neutral", "Agree")
 ```
 
 ```{r ex12-hint-1}
-# Hint: Use factor() to convert the responses character vector, specifying the levels and setting ordered = TRUE.
+# Hint 1 (Concept): Convert character vectors to ordered factors using factor() with levels = c(...) and ordered = TRUE.
+```
+
+```{r ex12-hint-2}
+# Hint 2 (Code Skeleton):
+ordered_responses <- factor(responses, levels = c("Disagree", "Neutral", "Agree"), ordered = TRUE)
+```
+
+```{r ex12-hint-3}
+# Hint 3 (Detailed Guide): `levels` defines the explicit order from lowest to highest. Setting `ordered = TRUE` establishes ordinal rank.
 ```
 
 ```{r ex12-solution}
-  # solution/hint content purged from public repository history
+responses <- c("Agree", "Disagree", "Neutral", "Agree")
 
+# 1. Create ordered_responses factor
+ordered_responses <- factor(responses, levels = c("Disagree", "Neutral", "Agree"), ordered = TRUE)
+ordered_responses
 ```
 
 ```{r ex12-check}
@@ -458,12 +650,27 @@ A data frame is a list of equal-length vectors, mimicking a dataset table.
 ```
 
 ```{r ex13-hint-1}
-# Hint: Use read.csv() pointing to the relative path of the CSV file. Use nrow() to check the row count and head() with the n argument to view the top rows.
+# Hint 1 (Concept): Use read.csv() to load CSV data into a data frame. Use nrow() for row count and head(df, n = 3) for top rows.
+```
+
+```{r ex13-hint-2}
+# Hint 2 (Code Skeleton):
+df <- read.csv("data/student_scores.csv")
+nrow(df)
+head(df, n = 3)
+```
+
+```{r ex13-hint-3}
+# Hint 3 (Detailed Guide): `read.csv()` imports CSV files. `head(df, 3)` displays the first 3 rows.
 ```
 
 ```{r ex13-solution}
-  # solution/hint content purged from public repository history
+# 1. Read student_scores.csv into df
+df <- read.csv("data/student_scores.csv")
 
+# 2. Print row count and first 3 lines
+nrow(df)
+head(df, n = 3)
 ```
 
 ```{r ex13-check}

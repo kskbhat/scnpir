@@ -45,12 +45,33 @@ Using the preloaded data frame `scores` and base R functions:
 ```
 
 ```{r ex1-hint-1}
-# Hint: Access the specific column of the data frame using the dollar operator ($). Calculate summary stats using mean(), median(), sd(), var(), and summary().
+# Hint 1 (Concept): Access data frame columns using `df$column`. Calculate summary statistics using mean(), median(), sd(), var(), and summary().
+```
+
+```{r ex1-hint-2}
+# Hint 2 (Code Skeleton):
+mean(scores$score)
+median(scores$score)
+sd(scores$score)
+var(scores$score)
+summary(scores$score)
+```
+
+```{r ex1-hint-3}
+# Hint 3 (Detailed Guide): `scores$score` selects the `score` column. Use standard base R summary functions.
 ```
 
 ```{r ex1-solution}
-  # solution/hint content purged from public repository history
+# 1. Calculate mean and median
+mean(scores$score)
+median(scores$score)
 
+# 2. Calculate standard deviation and variance
+sd(scores$score)
+var(scores$score)
+
+# 3. Print overall summary
+summary(scores$score)
 ```
 
 ```{r ex1-check}
@@ -86,12 +107,37 @@ skewness_manual(test_vector)
 ```
 
 ```{r ex2-hint-1}
-# Hint: Count length with length(). Calculate mean with mean(). Calculate the numerator as sum((x - m)^3) / n and denominator as (sum((x - m)^2) / n)^(1.5) or using sqrt(). Remember to check the sample size condition first.
+# Hint 1 (Concept): Create a function `skewness_manual <- function(x)`. Check if `length(x) < 3` and return NA. Calculate formula components using mean() and sum().
+```
+
+```{r ex2-hint-2}
+# Hint 2 (Code Skeleton):
+skewness_manual <- function(x) {
+  n <- length(x)
+  if (n < 3) return(NA)
+  m <- mean(x)
+  num <- sum((x - m)^3) / n
+  den <- (sum((x - m)^2) / n)^(1.5)
+  return(num / den)
+}
+```
+
+```{r ex2-hint-3}
+# Hint 3 (Detailed Guide): Standard skewness formula uses population variance in denominator: `(sum((x - m)^2)/n)^(3/2)`.
 ```
 
 ```{r ex2-solution}
-  # solution/hint content purged from public repository history
+skewness_manual <- function(x) {
+  n <- length(x)
+  if (n < 3) return(NA)
+  m <- mean(x)
+  num <- sum((x - m)^3) / n
+  den <- (sum((x - m)^2) / n)^(1.5)
+  return(num / den)
+}
 
+test_vector <- c(4, 5, 6, 8, 10)
+skewness_manual(test_vector)
 ```
 
 ```{r ex2-check}

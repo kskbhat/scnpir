@@ -103,10 +103,7 @@ addmargins(tab)
 # Hint 3 (Detailed Guide): `table()` summarizes frequencies across the two categorical factors. `addmargins()` appends Sum columns and rows.
 ```
 
-```{r ex1-hint-2}
-  # solution/hint content purged from public repository history
 
-```
 
 ```{r ex1-solution}
 treatment <- rep(c("New", "Standard"), each = 90)
@@ -126,7 +123,7 @@ grade_this_code()
 
 ### Check Your Understanding & How to Report
 
-```{r quiz}
+```{r quiz-u4-1}
 quiz(
   caption = "Unit 4 Knowledge Check",
   question("When is Fisher's Exact Test preferred over Pearson's Chi-Square Test?",
@@ -534,7 +531,7 @@ quiz(
 
 Test your understanding of Unit 4!
 
-```{r quiz}
+```{r quiz-u4-2}
 quiz(
   question("Which test is appropriate for evaluating differences in categorical outcomes from paired observations (e.g. before/after on the same patients)?",
     answer("Pearson's Chi-Square test", message = "No, standard Chi-Square assumes independent observations."),

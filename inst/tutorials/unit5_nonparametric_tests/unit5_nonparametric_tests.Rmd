@@ -19,6 +19,39 @@ Welcome to Unit 5! This tutorial covers non-parametric statistical methods, incl
 
 ---
 
+
+---
+
+## Interactive Explorer: Outlier Robustness (Mann-Whitney vs. t-Test)
+
+Drag the slider to introduce a severe outlier into Group 1 and observe how the $t$-test $p$-value breaks down, while the Mann-Whitney $U$ test stays robust!
+
+```{r outlier-demo-ui}
+sliderInput("outlier_val", "Outlier Value added to Group 1:", min = 0, max = 200, value = 0, step = 10)
+plotOutput("outlier_plot", height = "300px")
+```
+
+```{r outlier-demo-server, context="server"}
+output$outlier_plot <- renderPlot({
+  set.seed(101)
+  g1 <- c(rnorm(14, mean = 20, sd = 3), 20 + input$outlier_val)
+  g2 <- rnorm(15, mean = 25, sd = 3)
+  
+  t_res <- t.test(g1, g2)
+  mw_res <- wilcox.test(g1, g2)
+  
+  df_sim <- data.frame(
+    val = c(g1, g2),
+    grp = rep(c("Group 1 (with outlier)", "Group 2"), times = c(15, 15))
+  )
+  
+  boxplot(val ~ grp, data = df_sim, col = c("#E74C3C", "#2ECC71"),
+          main = paste("t-test p =", round(t_res$p.value, 4), "| Mann-Whitney p =", round(mw_res$p.value, 4)),
+          ylab = "Value")
+})
+```
+
+
 ## Exercise 1: Exact Binomial Test
 
 The exact binomial test evaluates whether observed proportions deviate from a hypothesized probability.
@@ -431,10 +464,27 @@ Test your understanding of Unit 5!
 
 ```{r quiz}
 quiz(
-  question("Under what condition is Kruskal-Wallis test used instead of one-way ANOVA?",
-    answer("When the dependent variable is ordinal or when normality assumptions are violated.", correct = TRUE),
-    answer("When there are exactly two groups.", message = "No, Kruskal-Wallis is for compares medians across 3 or more groups."),
-    incorrect = "Correct! Kruskal-Wallis is the non-parametric analogue of one-way ANOVA."
+  caption = "Unit 5 Knowledge Check",
+  question("Why are non-parametric tests like Mann-Whitney U resistant to extreme outliers?",
+    answer("Because they operate on data ranks rather than raw numerical values.", correct = TRUE),
+    answer("Because they automatically delete outliers before testing.", message = "No, non-parametric tests preserve all data points by converting them to ranks."),
+    answer("Because they assume a normal distribution.", message = "Incorrect. Non-parametric tests make no distributional assumptions."),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question_text(
+    "What R function is used to conduct a non-parametric one-way ANOVA across 3+ independent groups?",
+    answer("kruskal.test", correct = TRUE),
+    answer("kruskal.test()", correct = TRUE),
+    allow_retry = TRUE,
+    trim = TRUE,
+    options = list(placeholder = "e.g., function_name")
+  ),
+  question("Which non-parametric test is used for repeated measures / blocked designs across 3+ related groups?",
+    answer("Friedman test", correct = TRUE),
+    answer("Mann-Whitney U test", message = "No, Mann-Whitney U is for 2 independent groups."),
+    answer("Wilcoxon rank-sum test", message = "No, Wilcoxon rank-sum is for 2 independent groups."),
+    allow_retry = TRUE
   )
 )
 ```

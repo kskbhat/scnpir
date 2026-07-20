@@ -49,12 +49,37 @@ Using base R mathematical functions and the standard `mtcars$mpg` vector:
 ```
 
 ```{r ex1-hint-1}
-# Hint: Recall that the standard error is standard deviation divided by the square root of sample size. The t-statistic is (mean - hypothesized_mean) / standard_error. The two-tailed p-value is calculated using pt().
+# Hint 1 (Concept): Calculate sample statistics (n, xbar, s), compute standard error se = s/sqrt(n), t-statistic = (xbar - mu0)/se, and use 2*(1 - pt(abs(t_stat), df = n-1)) for the p-value.
+```
+
+```{r ex1-hint-2}
+# Hint 2 (Code Skeleton):
+n <- length(mtcars$mpg)
+xbar <- mean(mtcars$mpg)
+s <- sd(mtcars$mpg)
+se <- s / sqrt(n)
+t_stat <- (xbar - 20) / se
+p_val <- 2 * (1 - pt(abs(t_stat), df = n - 1))
+```
+
+```{r ex1-hint-3}
+# Hint 3 (Detailed Guide): `pt()` gives the cumulative density function of the t-distribution. Multiply `1 - pt(abs(t_stat), df = n-1)` by 2 for a two-tailed test.
 ```
 
 ```{r ex1-solution}
-  # solution/hint content purged from public repository history
+n <- length(mtcars$mpg)
+xbar <- mean(mtcars$mpg)
+s <- sd(mtcars$mpg)
 
+# 2. Compute standard error se
+se <- s / sqrt(n)
+
+# 3. Calculate t-statistic (null mu0 = 20)
+t_stat <- (xbar - 20) / se
+
+# 4. Calculate two-tailed p-value
+p_val <- 2 * (1 - pt(abs(t_stat), df = n - 1))
+cat("t-stat:", t_stat, "p-val:", p_val, "\n")
 ```
 
 ```{r ex1-check}
@@ -84,12 +109,25 @@ Using `t.test()` and the `mtcars$mpg` vector:
 ```
 
 ```{r ex2-hint-1}
-# Hint: Use the built-in t.test() function specifying the data vector and the null hypothesis mu. Extract the confidence interval vector using the $conf.int attribute.
+# Hint 1 (Concept): Use t.test(x, mu = 20) to run the one-sample t-test. Extract the confidence interval using result$conf.int.
+```
+
+```{r ex2-hint-2}
+# Hint 2 (Code Skeleton):
+result <- t.test(mtcars$mpg, mu = 20)
+result$conf.int
+```
+
+```{r ex2-hint-3}
+# Hint 3 (Detailed Guide): `t.test()` returns a list of class 'htest'. The confidence interval is stored in the `$conf.int` attribute.
 ```
 
 ```{r ex2-solution}
-  # solution/hint content purged from public repository history
+# 1. Run t.test and store in result
+result <- t.test(mtcars$mpg, mu = 20)
 
+# 2. Extract confidence interval vector
+result$conf.int
 ```
 
 ```{r ex2-check}

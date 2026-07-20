@@ -43,12 +43,29 @@ Let's test if the proportion of patients receiving the `"New"` treatment differs
 ```
 
 ```{r ex1-hint-1}
-# Hint: Calculate the count of successes and total trials. Pass these counts to binom.test() with p = 0.5.
+# Hint 1 (Concept): Count successes in the treatment vector using sum(course_df$treatment == 'New'), get total length using nrow(course_df), and call binom.test(n_new, n_total, p = 0.5).
+```
+
+```{r ex1-hint-2}
+# Hint 2 (Code Skeleton):
+n_new <- sum(course_df$treatment == "New")
+n_total <- nrow(course_df)
+binom.test(n_new, n_total, p = 0.5)
+```
+
+```{r ex1-hint-3}
+# Hint 3 (Detailed Guide): `binom.test(x, n, p)` evaluates if observed count `x` out of `n` trials differs from theoretical probability `p`.
 ```
 
 ```{r ex1-solution}
-  # solution/hint content purged from public repository history
+# 1. Count patients in New treatment group
+n_new <- sum(course_df$treatment == "New")
 
+# 2. Count total patients
+n_total <- nrow(course_df)
+
+# 3. Run binom.test()
+binom.test(n_new, n_total, p = 0.5)
 ```
 
 ```{r ex1-check}
@@ -85,12 +102,33 @@ Let's test if the median week 8 pain score (`week8_pain` in `course_df`) differs
 ```
 
 ```{r ex2-hint-1}
-# Hint: Calculate the difference between the observations and the hypothesized threshold. Count the number of positive differences and valid (non-tied) differences. Pass these to binom.test() with p = 0.5.
+# Hint 1 (Concept): Calculate diffs = course_df$week8_pain - 4.0. Count n_pos = sum(diffs > 0) and n_valid = sum(diffs != 0). Run binom.test(n_pos, n_valid, p = 0.5).
+```
+
+```{r ex2-hint-2}
+# Hint 2 (Code Skeleton):
+diffs <- course_df$week8_pain - 4.0
+n_pos <- sum(diffs > 0)
+n_valid <- sum(diffs != 0)
+binom.test(n_pos, n_valid, p = 0.5)
+```
+
+```{r ex2-hint-3}
+# Hint 3 (Detailed Guide): Ties (where difference is exactly 0) must be discarded when performing a Sign Test. `binom.test(n_pos, n_valid, p = 0.5)` tests if positive differences exceed 50%.
 ```
 
 ```{r ex2-solution}
-  # solution/hint content purged from public repository history
+# 1. Compute differences from threshold 4.0
+diffs <- course_df$week8_pain - 4.0
 
+# 2. Count positive differences n_pos
+n_pos <- sum(diffs > 0)
+
+# 3. Count non-tied differences n_valid
+n_valid <- sum(diffs != 0)
+
+# 4. Perform binom.test()
+binom.test(n_pos, n_valid, p = 0.5)
 ```
 
 ```{r ex2-check}

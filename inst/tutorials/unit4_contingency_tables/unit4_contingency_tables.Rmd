@@ -44,7 +44,17 @@ pain_relief <- c(rep(c("Relieved", "Not Relieved"), times = c(75, 15)),
 ```
 
 ```{r ex1-hint-1}
-# Hint: Use table() with the two categorical vectors as arguments. Pass the resulting table to addmargins() to add marginal totals.
+# Hint 1 (Concept): Use table(treatment, pain_relief) to create the 2x2 table, then pass it to addmargins() to add row/col totals.
+```
+
+```{r ex1-hint-2}
+# Hint 2 (Code Skeleton):
+tab <- table(treatment, pain_relief)
+addmargins(tab)
+```
+
+```{r ex1-hint-3}
+# Hint 3 (Detailed Guide): `table()` summarizes frequencies across the two categorical factors. `addmargins()` appends Sum columns and rows.
 ```
 
 ```{r ex1-hint-2}
@@ -53,8 +63,15 @@ pain_relief <- c(rep(c("Relieved", "Not Relieved"), times = c(75, 15)),
 ```
 
 ```{r ex1-solution}
-  # solution/hint content purged from public repository history
+treatment <- rep(c("New", "Standard"), each = 90)
+pain_relief <- c(rep(c("Relieved", "Not Relieved"), times = c(75, 15)),
+                 rep(c("Relieved", "Not Relieved"), times = c(30, 60)))
 
+# 1. Create contingency table tab
+tab <- table(treatment, pain_relief)
+
+# 2. Add margins to tab
+addmargins(tab)
 ```
 
 ```{r ex1-check}
@@ -99,12 +116,25 @@ tab <- matrix(c(15, 75, 60, 30), nrow = 2, byrow = TRUE,
 ```
 
 ```{r ex2-hint-1}
-# Hint: Use chisq.test() on the contingency table matrix. By default, it applies Yates' continuity correction.
+# Hint 1 (Concept): Pass the 2x2 matrix or table to chisq.test(). By default, correct = TRUE applies Yates' continuity correction.
+```
+
+```{r ex2-hint-2}
+# Hint 2 (Code Skeleton):
+chisq.test(tab)
+```
+
+```{r ex2-hint-3}
+# Hint 3 (Detailed Guide): `chisq.test(tab)` performs Pearson's Chi-Square test with Yates' continuity correction for 2x2 tables.
 ```
 
 ```{r ex2-solution}
-  # solution/hint content purged from public repository history
+tab <- matrix(c(15, 75, 60, 30), nrow = 2, byrow = TRUE,
+              dimnames = list(Treatment = c("New", "Standard"),
+                              Relief = c("Not Relieved", "Relieved")))
 
+# 1. Run Yates-corrected Chi-Square
+chisq.test(tab)
 ```
 
 ```{r ex2-check}

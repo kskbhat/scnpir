@@ -3,3 +3,4 @@
 ^\.github$
 ^scratch$
 ^validate_.*$
+^LICENSE\.md$

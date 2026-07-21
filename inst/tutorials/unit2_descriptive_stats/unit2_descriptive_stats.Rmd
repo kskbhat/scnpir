@@ -583,36 +583,59 @@ Test your understanding of Unit 2!
 
 ```{r quiz-u2-final}
 quiz(
-  caption = "Unit 2 Knowledge Check",
+  caption = "Unit 2 Knowledge Check (10 Questions)",
   question("Which of the following dplyr verbs is used to subset columns of a data frame?",
     answer("`filter()`", message = "No, filter() subsets rows based on logical conditions."),
     answer("`select()`", correct = TRUE),
     answer("`mutate()`", message = "No, mutate() creates or transforms columns."),
-    allow_retry = TRUE,
-    random_answer_order = TRUE
+    allow_retry = TRUE, random_answer_order = TRUE
   ),
   question("Which loop construct runs indefinitely if the stopping condition is never updated?",
-    answer("`for` loop", message = "No, for loops terminate automatically when the iteration vector completes."),
+    answer("`for` loop", message = "No, for loops terminate automatically when iteration sequence ends."),
     answer("`while` loop", correct = TRUE),
     allow_retry = TRUE
   ),
   question_text(
     "What R function is used to calculate the Interquartile Range of a numeric vector?",
-    answer("IQR", correct = TRUE),
-    answer("IQR()", correct = TRUE),
-    allow_retry = TRUE,
-    trim = TRUE,
-    options = list(placeholder = "e.g., function_name")
+    answer("IQR", correct = TRUE), answer("IQR()", correct = TRUE),
+    allow_retry = TRUE, trim = TRUE, options = list(placeholder = "e.g., function_name")
   ),
   question_numeric(
     "What is the median of the dataset c(12, 15, 18, 22, 30)?",
-    answer(18, correct = TRUE),
-    allow_retry = TRUE,
+    answer(18, correct = TRUE), allow_retry = TRUE,
     correct = "Correct! 18 is the middle element of the sorted vector."
   ),
   question("What is the S3 method naming convention in R for dispatching generic functions?",
     answer("`generic_name.class_name`", correct = TRUE),
-    answer("`class_name$generic_name`", message = "No, that is object/environment extraction syntax."),
+    answer("`class_name$generic_name`", message = "No, that is environment/object extraction syntax."),
+    allow_retry = TRUE
+  ),
+  question("In a strongly right-skewed distribution, what is the expected relationship between the Mean and Median?",
+    answer("Mean > Median", correct = TRUE),
+    answer("Mean < Median", message = "No, left-skewed distributions have Mean < Median."),
+    answer("Mean = Median", message = "No, symmetric distributions have Mean = Median."),
+    allow_retry = TRUE
+  ),
+  question("Which ggplot2 geom layer is used to create a scatter plot of continuous variables?",
+    answer("`geom_point()`", correct = TRUE),
+    answer("`geom_histogram()`", message = "No, geom_histogram() is for univariate distributions."),
+    answer("`geom_line()`", message = "No, geom_line() connects points sequentially."),
+    allow_retry = TRUE
+  ),
+  question_numeric(
+    "When calculating sample variance, what denominator (n - ?) is used for Bessel's correction?",
+    answer(1, correct = TRUE), allow_retry = TRUE,
+    correct = "Correct! Sample variance uses denominator (n - 1) for unbiased estimation."
+  ),
+  question("Which apply family function applies a function across rows or columns of a matrix?",
+    answer("`apply()`", correct = TRUE),
+    answer("`lapply()`", message = "No, lapply() operates on lists or vectors."),
+    answer("`tapply()`", message = "No, tapply() computes summaries by factor groups."),
+    allow_retry = TRUE
+  ),
+  question("Which dplyr function is used to create summary statistics (e.g. mean, sd) collapsed across groups?",
+    answer("`summarise()` / `summarize()`", correct = TRUE),
+    answer("`mutate()`", message = "No, mutate() retains original row count."),
     allow_retry = TRUE
   )
 )

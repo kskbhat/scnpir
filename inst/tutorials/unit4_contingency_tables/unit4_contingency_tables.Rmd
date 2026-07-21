@@ -531,13 +531,60 @@ quiz(
 
 Test your understanding of Unit 4!
 
-```{r quiz-u4-2}
+```{r quiz-u4-end}
 quiz(
-  question("Which test is appropriate for evaluating differences in categorical outcomes from paired observations (e.g. before/after on the same patients)?",
-    answer("Pearson's Chi-Square test", message = "No, standard Chi-Square assumes independent observations."),
-    answer("McNemar's test", correct = TRUE),
-    answer("Cochran-Mantel-Haenszel test", message = "No, CMH is for stratified independent tables."),
-    incorrect = "McNemar's test checks marginal homogeneity in paired contingency tables."
+  caption = "Unit 4 Knowledge Check (10 Questions)",
+  question("When is Fisher's Exact Test preferred over Pearson's Chi-Square Test?",
+    answer("When expected cell frequencies in a 2x2 table are small (< 5).", correct = TRUE),
+    answer("When the sample size is greater than 10,000.", message = "No, Chi-square works well for large sample sizes."),
+    answer("When variables are continuous.", message = "Incorrect. Both tests are for categorical variables."),
+    allow_retry = TRUE, random_answer_order = TRUE
+  ),
+  question_text(
+    "What R function is used to calculate Cohen's Kappa for inter-rater agreement?",
+    answer("cohen.kappa", correct = TRUE), answer("cohen.kappa()", correct = TRUE),
+    allow_retry = TRUE, trim = TRUE, options = list(placeholder = "e.g., package::function_name")
+  ),
+  question("Which test should be used to test marginal homogeneity in paired binary data (e.g. before vs after in the same subjects)?",
+    answer("McNemar test", correct = TRUE),
+    answer("Mann-Whitney U test", message = "No, Mann-Whitney U is for two independent continuous/ordinal groups."),
+    answer("Kruskal-Wallis test", message = "No, Kruskal-Wallis is for 3+ independent continuous/ordinal groups."),
+    allow_retry = TRUE
+  ),
+  question_numeric(
+    "What are the degrees of freedom for a Chi-Square test on a 3x3 contingency table?",
+    answer(4, correct = TRUE), allow_retry = TRUE,
+    correct = "Correct! df = (r - 1) * (c - 1) = (3 - 1) * (3 - 1) = 4."
+  ),
+  question("What is the formula for calculating the Odds Ratio (OR) in a 2x2 table with cells a, b, c, d?",
+    answer("`OR = (a * d) / (b * c)`", correct = TRUE),
+    answer("`OR = (a * b) / (c * d)`", message = "No, cross-product ratio is (a*d)/(b*c)."),
+    allow_retry = TRUE
+  ),
+  question("What value of Odds Ratio (OR) indicates no association between exposure and outcome?",
+    answer("OR = 1.0", correct = TRUE),
+    answer("OR = 0.0", message = "No, OR = 0 indicates zero odds in one group."),
+    allow_retry = TRUE
+  ),
+  question("What range of Cohen's Kappa indicates strong / substantial inter-rater agreement?",
+    answer("0.61 to 0.80", correct = TRUE),
+    answer("0.00 to 0.20", message = "No, 0.0 to 0.2 indicates slight agreement."),
+    allow_retry = TRUE
+  ),
+  question("Which argument in chisq.test() controls Yates' continuity correction for 2x2 tables?",
+    answer("`correct`", correct = TRUE),
+    answer("`simulate.p.value`", message = "No, simulate.p.value uses Monte Carlo simulation."),
+    allow_retry = TRUE
+  ),
+  question("Which function appends row and column sum totals to a 2x2 contingency table?",
+    answer("`addmargins()`", correct = TRUE),
+    answer("`margin.table()`", message = "No, margin.table() calculates marginal totals separately."),
+    allow_retry = TRUE
+  ),
+  question("What is the primary assumption for Pearson's Chi-Square Test of Independence?",
+    answer("Observations must be independent, and expected cell counts should generally be >= 5.", correct = TRUE),
+    answer("Data must follow a multivariate normal distribution.", message = "No, Chi-square is categorical."),
+    allow_retry = TRUE
   )
 )
 ```

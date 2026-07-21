@@ -685,34 +685,62 @@ Test your understanding of Unit 1!
 
 ```{r quiz}
 quiz(
-  caption = "Unit 1 Knowledge Check",
+  caption = "Unit 1 Knowledge Check (10 Questions)",
   question("What is the main difference between a matrix and a data frame in R?",
     answer("A matrix can only hold a single data type, while a data frame can hold multiple types in different columns.", correct = TRUE),
     answer("A matrix is 3-dimensional, while a data frame is 2-dimensional.", message = "No, both matrices and data frames are 2-dimensional."),
     answer("A data frame can only hold numbers, while a matrix holds text.", message = "Incorrect. Matrices can hold text or numbers, but all elements must be of the same single type."),
-    allow_retry = TRUE,
-    random_answer_order = TRUE
+    allow_retry = TRUE, random_answer_order = TRUE
   ),
   question_text(
     "What R function is used to load data from a comma-separated CSV file into a data frame?",
-    answer("read.csv", correct = TRUE),
-    answer("read.csv()", correct = TRUE),
-    allow_retry = TRUE,
-    trim = TRUE,
-    options = list(placeholder = "e.g., function_name")
+    answer("read.csv", correct = TRUE), answer("read.csv()", correct = TRUE),
+    allow_retry = TRUE, trim = TRUE, options = list(placeholder = "e.g., function_name")
   ),
   question_numeric(
     "How many dimensions does a standard R matrix have?",
-    answer(2, correct = TRUE),
-    allow_retry = TRUE,
+    answer(2, correct = TRUE), allow_retry = TRUE,
     correct = "Correct! A matrix is a 2-dimensional data structure (rows and columns)."
   ),
-  question("Which operators extract list elements as their actual data type (instead of a sublist container)? (Select all that apply)",
+  question("If a vector contains c(10, 'apple', TRUE), what data type will R coerce all elements to?",
+    answer("Character", correct = TRUE),
+    answer("Numeric", message = "No, strings cannot be implicitly converted to numbers."),
+    answer("Logical", message = "No, text strings force implicit coercion to character."),
+    allow_retry = TRUE
+  ),
+  question("Which operator extracts list elements as their actual data type (instead of a sublist container)?",
     answer("`[`", message = "No, single square brackets [ ] return a sublist container."),
     answer("`[[`", correct = TRUE),
     answer("`$`", correct = TRUE),
-    allow_retry = TRUE,
-    type = "learnr_checkbox"
+    allow_retry = TRUE, type = "learnr_checkbox"
+  ),
+  question("Which function provides a compact structural display of an R object, showing column names, types, and first few values?",
+    answer("`str()`", correct = TRUE),
+    answer("`summary()`", message = "No, summary() computes summary statistics."),
+    answer("`head()`", message = "No, head() prints the top rows of a dataset."),
+    allow_retry = TRUE
+  ),
+  question_numeric(
+    "If an array is created with dim = c(3, 4, 2), how many total numeric elements does it contain?",
+    answer(24, correct = TRUE), allow_retry = TRUE,
+    correct = "Correct! 3 * 4 * 2 = 24 elements."
+  ),
+  question("Which R syntax correctly selects the element in row 3, column 2 of a matrix M?",
+    answer("`M[3, 2]`", correct = TRUE),
+    answer("`M[2, 3]`", message = "No, in R indexing is M[row, column]."),
+    answer("`M[[3]][2]`", message = "No, double brackets are used for list indexing."),
+    allow_retry = TRUE
+  ),
+  question("What argument in factor() is set to TRUE to create an ordinal (ordered) factor?",
+    answer("`ordered`", correct = TRUE),
+    answer("`levels`", message = "No, levels specifies the category order."),
+    answer("`sorted`", message = "No, the argument name is ordered = TRUE."),
+    allow_retry = TRUE
+  ),
+  question("Which element-wise logical operator performs element-by-element logical AND across vectors?",
+    answer("`&`", correct = TRUE),
+    answer("`&&`", message = "No, && evaluates only the first element of a vector."),
+    allow_retry = TRUE
   )
 )
 ```

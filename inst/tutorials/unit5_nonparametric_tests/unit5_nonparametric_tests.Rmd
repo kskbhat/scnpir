@@ -462,28 +462,59 @@ quiz(
 
 Test your understanding of Unit 5!
 
-```{r quiz}
+```{r quiz-u5-final}
 quiz(
-  caption = "Unit 5 Knowledge Check",
+  caption = "Unit 5 Knowledge Check (10 Questions)",
   question("Why are non-parametric tests like Mann-Whitney U resistant to extreme outliers?",
     answer("Because they operate on data ranks rather than raw numerical values.", correct = TRUE),
     answer("Because they automatically delete outliers before testing.", message = "No, non-parametric tests preserve all data points by converting them to ranks."),
     answer("Because they assume a normal distribution.", message = "Incorrect. Non-parametric tests make no distributional assumptions."),
-    allow_retry = TRUE,
-    random_answer_order = TRUE
+    allow_retry = TRUE, random_answer_order = TRUE
   ),
   question_text(
     "What R function is used to conduct a non-parametric one-way ANOVA across 3+ independent groups?",
-    answer("kruskal.test", correct = TRUE),
-    answer("kruskal.test()", correct = TRUE),
-    allow_retry = TRUE,
-    trim = TRUE,
-    options = list(placeholder = "e.g., function_name")
+    answer("kruskal.test", correct = TRUE), answer("kruskal.test()", correct = TRUE),
+    allow_retry = TRUE, trim = TRUE, options = list(placeholder = "e.g., function_name")
   ),
   question("Which non-parametric test is used for repeated measures / blocked designs across 3+ related groups?",
     answer("Friedman test", correct = TRUE),
     answer("Mann-Whitney U test", message = "No, Mann-Whitney U is for 2 independent groups."),
     answer("Wilcoxon rank-sum test", message = "No, Wilcoxon rank-sum is for 2 independent groups."),
+    allow_retry = TRUE
+  ),
+  question("What is the non-parametric equivalent of the paired Student's t-test for 2 related samples?",
+    answer("Wilcoxon Signed-Rank Test", correct = TRUE),
+    answer("Mann-Whitney U Test", message = "No, Mann-Whitney U is for independent samples."),
+    allow_retry = TRUE
+  ),
+  question_numeric(
+    "What is the minimum number of independent treatment groups required for a Kruskal-Wallis test?",
+    answer(3, correct = TRUE), allow_retry = TRUE,
+    correct = "Correct! Kruskal-Wallis extends Mann-Whitney to k >= 3 groups."
+  ),
+  question("Which R function conducts an Exact Binomial Test for a single proportion?",
+    answer("`binom.test()`", correct = TRUE),
+    answer("`prop.test()`", message = "No, prop.test() uses normal approximation."),
+    allow_retry = TRUE
+  ),
+  question("Which non-parametric test is used to compare the empirical cumulative distribution function (ECDF) of two samples?",
+    answer("Kolmogorov-Smirnov test (`ks.test()`)", correct = TRUE),
+    answer("Wilcoxon test", message = "No, Wilcoxon compares location/ranks."),
+    allow_retry = TRUE
+  ),
+  question("When normal distribution assumptions ARE met, what is the relative asymptotic efficiency of the Mann-Whitney U test compared to Student's t-test?",
+    answer("Approximately 95.5%", correct = TRUE),
+    answer("Approximately 50%", message = "No, non-parametric tests lose very little power (~95.5%)."),
+    allow_retry = TRUE
+  ),
+  question("How does wilcox.test() handle ties (identical values) when exact = TRUE?",
+    answer("It emits a warning and falls back to normal asymptotic approximation.", correct = TRUE),
+    answer("It throws a fatal error.", message = "No, it falls back to normal approximation."),
+    allow_retry = TRUE
+  ),
+  question("Which test compares paired binary responses (e.g. success/failure before vs after treatment)?",
+    answer("`mcnemar.test()`", correct = TRUE),
+    answer("`chisq.test()`", message = "No, chisq.test() is for independent samples."),
     allow_retry = TRUE
   )
 )

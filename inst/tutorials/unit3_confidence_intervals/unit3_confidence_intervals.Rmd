@@ -451,27 +451,21 @@ Test your understanding of Unit 3!
 
 ```{r quiz-u3-final}
 quiz(
-  caption = "Unit 3 Knowledge Check",
+  caption = "Unit 3 Knowledge Check (10 Questions)",
   question("How does increasing sample size n affect the width of a 95% Confidence Interval?",
     answer("It decreases the interval width (makes the estimate more precise).", correct = TRUE),
     answer("It increases the interval width.", message = "No, larger sample sizes reduce standard error."),
     answer("It has no effect on the interval width.", message = "Incorrect. Width is inversely proportional to sqrt(n)."),
-    allow_retry = TRUE,
-    random_answer_order = TRUE
+    allow_retry = TRUE, random_answer_order = TRUE
   ),
   question_text(
     "What core R package function is used to generate bootstrap samples?",
-    answer("boot", correct = TRUE),
-    answer("boot()", correct = TRUE),
-    allow_retry = TRUE,
-    trim = TRUE,
-    options = list(placeholder = "e.g., package::function_name")
+    answer("boot", correct = TRUE), answer("boot()", correct = TRUE),
+    allow_retry = TRUE, trim = TRUE, options = list(placeholder = "e.g., package::function_name")
   ),
   question_numeric(
     "What critical z-value corresponds to a standard 95% two-sided confidence interval? (Round to 2 decimal places)",
-    answer(1.96, correct = TRUE),
-    tolerance = 0.01,
-    allow_retry = TRUE,
+    answer(1.96, correct = TRUE), tolerance = 0.01, allow_retry = TRUE,
     correct = "Correct! z_0.025 = 1.96."
   ),
   question("Which bootstrap confidence interval method adjusts for both bias and skewness in the bootstrap distribution?",
@@ -482,9 +476,34 @@ quiz(
   ),
   question_numeric(
     "If sample size n = 30, what degrees of freedom (df) should be used for a one-sample t-test?",
-    answer(29, correct = TRUE),
-    allow_retry = TRUE,
+    answer(29, correct = TRUE), allow_retry = TRUE,
     correct = "Correct! df = n - 1 = 29."
+  ),
+  question("What is the general guideline for minimum sample size n for the Central Limit Theorem to hold for non-normal data?",
+    answer("n >= 30", correct = TRUE),
+    answer("n >= 5", message = "No, n = 5 is insufficient for skewed data."),
+    answer("n >= 1000", message = "No, n = 30 is sufficient for most distributions."),
+    allow_retry = TRUE
+  ),
+  question("How does Student's t-distribution differ from the Standard Normal (z) distribution?",
+    answer("It has heavier tails (higher variance) to account for uncertainty in estimating sigma.", correct = TRUE),
+    answer("It is skewed to the right.", message = "No, t-distribution is symmetric about zero."),
+    allow_retry = TRUE
+  ),
+  question_numeric(
+    "What is the standard error (SE) of the sample mean for sample SD s = 10 and n = 100?",
+    answer(1, correct = TRUE), allow_retry = TRUE,
+    correct = "Correct! SE = s / sqrt(n) = 10 / 10 = 1."
+  ),
+  question("What minimum number of bootstrap resamples (R) is recommended for reliable bootstrap confidence intervals?",
+    answer("R >= 1000", correct = TRUE),
+    answer("R = 30", message = "No, R = 30 is too small for empirical percentile estimation."),
+    allow_retry = TRUE
+  ),
+  question("For paired data with n = 20 pairs, what are the degrees of freedom for the paired t-test?",
+    answer("df = 19", correct = TRUE),
+    answer("df = 38", message = "No, for paired data, df = n_pairs - 1 = 19."),
+    allow_retry = TRUE
   )
 )
 ```

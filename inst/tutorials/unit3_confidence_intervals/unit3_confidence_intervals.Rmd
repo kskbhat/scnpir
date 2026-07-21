@@ -449,12 +449,42 @@ quiz(
 
 Test your understanding of Unit 3!
 
-```{r quiz}
+```{r quiz-u3-final}
 quiz(
-  question("Why are non-parametric bootstrap confidence intervals preferred over standard parametric intervals?",
-    answer("They do not make distributional assumptions (such as normality) and are robust to skewness.", correct = TRUE),
-    answer("They require much smaller sample sizes.", message = "No, bootstrap actually requires a representative sample size to work well."),
-    incorrect = "Correct! Bootstrapping relies on the empirical distribution of the sample."
+  caption = "Unit 3 Knowledge Check",
+  question("How does increasing sample size n affect the width of a 95% Confidence Interval?",
+    answer("It decreases the interval width (makes the estimate more precise).", correct = TRUE),
+    answer("It increases the interval width.", message = "No, larger sample sizes reduce standard error."),
+    answer("It has no effect on the interval width.", message = "Incorrect. Width is inversely proportional to sqrt(n)."),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question_text(
+    "What core R package function is used to generate bootstrap samples?",
+    answer("boot", correct = TRUE),
+    answer("boot()", correct = TRUE),
+    allow_retry = TRUE,
+    trim = TRUE,
+    options = list(placeholder = "e.g., package::function_name")
+  ),
+  question_numeric(
+    "What critical z-value corresponds to a standard 95% two-sided confidence interval? (Round to 2 decimal places)",
+    answer(1.96, correct = TRUE),
+    tolerance = 0.01,
+    allow_retry = TRUE,
+    correct = "Correct! z_0.025 = 1.96."
+  ),
+  question("Which bootstrap confidence interval method adjusts for both bias and skewness in the bootstrap distribution?",
+    answer("Percentile Interval", message = "No, percentile intervals do not correct for acceleration/skewness."),
+    answer("BCa (Bias-Corrected and Accelerated) Interval", correct = TRUE),
+    answer("Standard Normal Interval", message = "No, normal intervals assume a symmetric normal sampling distribution."),
+    allow_retry = TRUE
+  ),
+  question_numeric(
+    "If sample size n = 30, what degrees of freedom (df) should be used for a one-sample t-test?",
+    answer(29, correct = TRUE),
+    allow_retry = TRUE,
+    correct = "Correct! df = n - 1 = 29."
   )
 )
 ```

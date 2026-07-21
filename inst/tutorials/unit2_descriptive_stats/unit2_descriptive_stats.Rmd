@@ -581,18 +581,39 @@ quiz(
 
 Test your understanding of Unit 2!
 
-```{r quiz}
+```{r quiz-u2-final}
 quiz(
+  caption = "Unit 2 Knowledge Check",
   question("Which of the following dplyr verbs is used to subset columns of a data frame?",
-    answer("`filter()`", message = "No, filter() subsets rows."),
+    answer("`filter()`", message = "No, filter() subsets rows based on logical conditions."),
     answer("`select()`", correct = TRUE),
-    answer("`mutate()`", message = "No, mutate() adds or modifies columns."),
-    incorrect = "Correct! select() subsets variables (columns)."
+    answer("`mutate()`", message = "No, mutate() creates or transforms columns."),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
   ),
-  question("Which loop construct is guaranteed to run indefinitely if the stopping condition is never updated inside the loop?",
-    answer("`for` loop", message = "No, for loops terminate once the sequence ends."),
+  question("Which loop construct runs indefinitely if the stopping condition is never updated?",
+    answer("`for` loop", message = "No, for loops terminate automatically when the iteration vector completes."),
     answer("`while` loop", correct = TRUE),
-    incorrect = "Correct! A while loop runs as long as its condition remains TRUE."
+    allow_retry = TRUE
+  ),
+  question_text(
+    "What R function is used to calculate the Interquartile Range of a numeric vector?",
+    answer("IQR", correct = TRUE),
+    answer("IQR()", correct = TRUE),
+    allow_retry = TRUE,
+    trim = TRUE,
+    options = list(placeholder = "e.g., function_name")
+  ),
+  question_numeric(
+    "What is the median of the dataset c(12, 15, 18, 22, 30)?",
+    answer(18, correct = TRUE),
+    allow_retry = TRUE,
+    correct = "Correct! 18 is the middle element of the sorted vector."
+  ),
+  question("What is the S3 method naming convention in R for dispatching generic functions?",
+    answer("`generic_name.class_name`", correct = TRUE),
+    answer("`class_name$generic_name`", message = "No, that is object/environment extraction syntax."),
+    allow_retry = TRUE
   )
 )
 ```

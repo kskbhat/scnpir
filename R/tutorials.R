@@ -21,17 +21,16 @@ list_tutorials <- function() {
 #' }
 get_dataset_path <- function(name) {
   path <- system.file("extdata", name, package = "scnpir")
-  if (!file.exists(path) || path == "") {
+  if (!nzchar(path) || !file.exists(path)) {
     path <- file.path("inst", "extdata", name)
   }
-  if (!file.exists(path) || path == "") {
-    path <- file.path("..", "..", "inst", "extdata", name)
-  }
-  if (!file.exists(path) || path == "") {
+  if (!file.exists(path)) {
     stop(paste("Dataset", name, "not found in scnpir package."))
   }
   path
 }
+
+# nocov start
 
 #' Run Unit 1 Interactive Tutorial
 #' @export
@@ -62,3 +61,5 @@ run_unit4 <- function() {
 run_unit5 <- function() {
   learnr::run_tutorial("unit5_nonparametric_tests", package = "scnpir")
 }
+
+# nocov end

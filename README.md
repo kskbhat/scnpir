@@ -8,6 +8,7 @@
 [![Course Notes](https://img.shields.io/badge/📖_Course_Notes-Open_Bookdown-blue?style=for-the-badge)](https://kskbhat.github.io/Teaching/mahe/Statistical%20Computing%20and%20Non%20parametric%20inference%20using%20R/_book/)
 [![R-CMD-check](https://github.com/kskbhat/scnpir/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/kskbhat/scnpir/actions/workflows/R-CMD-check.yaml)
 [![codecov](https://codecov.io/gh/kskbhat/scnpir/branch/main/graph/badge.svg)](https://codecov.io/gh/kskbhat/scnpir)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg?style=for-the-badge)](https://www.gnu.org/licenses/gpl-3.0)
 
 </div>
 

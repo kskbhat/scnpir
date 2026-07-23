@@ -31,7 +31,7 @@ jobs:
 
       - name: Calculate and upload test coverage via covr
         run: |
-          cov <- covr::package_coverage()
+          cov <- covr::package_coverage(type = "all")
           print(cov)
           covr::to_cobertura(cov, "coverage.xml")
           covr::codecov(coverage = cov, token = "${{ secrets.CODECOV_TOKEN }}")

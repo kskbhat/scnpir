@@ -1,5 +1,6 @@
 ---
 title: "Unit 4: Analysis of Contingency Tables"
+description: "Analyze two-way contingency tables, Fisher's exact test, chi-square tests, and compact reporting."
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---

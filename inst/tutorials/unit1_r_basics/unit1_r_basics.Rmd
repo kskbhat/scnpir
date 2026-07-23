@@ -1,5 +1,6 @@
 ---
 title: "Unit 1: Introduction to R and Data Structures"
+description: "Interactive tutorial on basic R syntax, data types, vectors, matrices, data frames, and factor variables."
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---

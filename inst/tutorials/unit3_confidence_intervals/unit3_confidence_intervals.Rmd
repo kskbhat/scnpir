@@ -1,5 +1,6 @@
 ---
 title: "Unit 3: Confidence Interval Estimation and Resampling Methods"
+description: "Master confidence interval estimation, asymptotic normality, and non-parametric resampling methods."
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---

@@ -1,5 +1,6 @@
 ---
 title: "Unit 2: Descriptive Statistics and Programming Fundamentals"
+description: "Learn descriptive statistics, summary measures, data manipulation, and programming fundamentals in R."
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---

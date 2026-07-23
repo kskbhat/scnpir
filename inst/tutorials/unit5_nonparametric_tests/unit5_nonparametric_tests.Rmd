@@ -1,5 +1,6 @@
 ---
 title: "Unit 5: Non-Parametric Tests and Applications"
+description: "Hands-on tutorial on Wilcoxon, Mann-Whitney U, Kruskal-Wallis, and Friedman non-parametric tests in R."
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---
